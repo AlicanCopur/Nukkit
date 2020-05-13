@@ -1,22 +1,26 @@
 package cn.nukkit.event.block;
 
 import cn.nukkit.block.Block;
-import cn.nukkit.event.Cancellable;
 import cn.nukkit.event.HandlerList;
 
 /**
- * author: MagicDroidX
+ * author: AlicanCopur
  * Nukkit Project
  */
-public class BlockUpdateEvent extends BlockEvent implements Cancellable {
+public class BlockChangeEvent extends BlockEvent {
 
     private static final HandlerList handlers = new HandlerList();
+    public Block blockPrevious;
 
     public static HandlerList getHandlers() {
         return handlers;
     }
 
-    public BlockUpdateEvent(Block block) {
+    public BlockChangeEvent(Block block, Block blockPrevious) {
         super(block);
+        this.blockPrevious = blockPrevious;
+    }
+    public Block getPrevious(){
+        return this.blockPrevious;
     }
 }

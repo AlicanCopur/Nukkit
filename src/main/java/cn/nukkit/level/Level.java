@@ -1704,6 +1704,9 @@ public class Level implements ChunkManager, Metadatable {
         } else {
             addBlockChange(index, x, y, z);
         }
+        
+        BlockChangeEvent ev = new BlockChangeEvent(block, blockPrevious);
+        this.server.getPluginManager().callEvent(ev);
 
         for (ChunkLoader loader : this.getChunkLoaders(cx, cz)) {
             loader.onBlockChanged(block);
@@ -1712,7 +1715,7 @@ public class Level implements ChunkManager, Metadatable {
             if (blockPrevious.isTransparent() != block.isTransparent() || blockPrevious.getLightLevel() != block.getLightLevel()) {
                 addLightUpdate(x, y, z);
             }
-            BlockUpdateEvent ev = new BlockUpdateEvent(block, blockPrevious);
+            BlockUpdateEvent ev = new BlockUpdateEvent(block);
             this.server.getPluginManager().callEvent(ev);
             if (!ev.isCancelled()) {
                 for (Entity entity : this.getNearbyEntities(new SimpleAxisAlignedBB(x - 1, y - 1, z - 1, x + 1, y + 1, z + 1))) {
