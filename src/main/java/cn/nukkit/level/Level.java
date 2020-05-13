@@ -1732,6 +1732,9 @@ public class Level implements ChunkManager, Metadatable {
         } else {
             addBlockChange(index, x, y, z);
         }
+        
+        BlockChangeEvent ev = new BlockChangeEvent(block, blockPrevious);
+        this.server.getPluginManager().callEvent(ev);
 
         for (ChunkLoader loader : this.getChunkLoaders(cx, cz)) {
             loader.onBlockChanged(block);
