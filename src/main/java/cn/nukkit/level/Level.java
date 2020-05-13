@@ -13,7 +13,7 @@ import cn.nukkit.entity.projectile.EntityArrow;
 import cn.nukkit.entity.weather.EntityLightning;
 import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.BlockPlaceEvent;
-import cn.nukkit.event.block.BlockUpdateEvent;
+import cn.nukkit.event.block.*;
 import cn.nukkit.event.level.*;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerInteractEvent.Action;
@@ -1712,7 +1712,7 @@ public class Level implements ChunkManager, Metadatable {
             if (blockPrevious.isTransparent() != block.isTransparent() || blockPrevious.getLightLevel() != block.getLightLevel()) {
                 addLightUpdate(x, y, z);
             }
-            BlockUpdateEvent ev = new BlockUpdateEvent(block);
+            BlockUpdateEvent ev = new BlockUpdateEvent(block, blockPrevious);
             this.server.getPluginManager().callEvent(ev);
             if (!ev.isCancelled()) {
                 for (Entity entity : this.getNearbyEntities(new SimpleAxisAlignedBB(x - 1, y - 1, z - 1, x + 1, y + 1, z + 1))) {

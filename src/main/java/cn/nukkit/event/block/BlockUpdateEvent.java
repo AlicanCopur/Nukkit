@@ -11,6 +11,7 @@ import cn.nukkit.event.HandlerList;
 public class BlockUpdateEvent extends BlockEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
+    private Block blockPrevious;
 
     public static HandlerList getHandlers() {
         return handlers;
@@ -18,6 +19,14 @@ public class BlockUpdateEvent extends BlockEvent implements Cancellable {
 
     public BlockUpdateEvent(Block block) {
         super(block);
+        this.blockPrevious = null;
+    }
+    public BlockUpdateEvent(Block block, Block blockPrevious) {
+        super(block);
+        this.blockPrevious = blockPrevious;
+    }
+    public Block getPrevious(){
+        return this.blockPrevious;
     }
 
 }
