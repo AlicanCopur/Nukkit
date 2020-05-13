@@ -18,12 +18,12 @@ public class BlockUpdateEvent extends BlockEvent implements Cancellable {
     }
 
     public BlockUpdateEvent(Block block) {
-        super(block);
         this.blockPrevious = null;
+        super(block);
     }
     public BlockUpdateEvent(Block block, Block blockPrevious) {
-        super(block);
         this.blockPrevious = blockPrevious;
+        super(block);
     }
     public Block getPrevious(){
         return this.blockPrevious;
