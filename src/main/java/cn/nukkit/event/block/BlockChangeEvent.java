@@ -10,7 +10,7 @@ import cn.nukkit.event.HandlerList;
 public class BlockChangeEvent extends BlockEvent {
 
     private static final HandlerList handlers = new HandlerList();
-    public Block blockPrevious;
+    protected final Block blockPrevious;
 
     public static HandlerList getHandlers() {
         return handlers;
