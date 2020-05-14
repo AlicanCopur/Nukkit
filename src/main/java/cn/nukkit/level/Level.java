@@ -1720,8 +1720,6 @@ public class Level implements ChunkManager, Metadatable {
             return false;
         }
 //        }
-        BlockChangeEvent blockChangeEvent = new BlockChangeEvent(block, blockPrevious);
-        this.server.getPluginManager().callEvent(blockChangeEvent);
         block.x = x;
         block.y = y;
         block.z = z;
@@ -1735,7 +1733,10 @@ public class Level implements ChunkManager, Metadatable {
         } else {
             addBlockChange(index, x, y, z);
         }
-
+        
+        BlockChangeEvent blockChangeEvent = new BlockChangeEvent(block, blockPrevious);
+        this.server.getPluginManager().callEvent(blockChangeEvent);
+        
         for (ChunkLoader loader : this.getChunkLoaders(cx, cz)) {
             loader.onBlockChanged(block);
         }
