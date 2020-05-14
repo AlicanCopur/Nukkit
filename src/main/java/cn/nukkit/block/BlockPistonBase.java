@@ -205,7 +205,11 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                 Vector3 newPos = block.getLocation().getSide(side);
 
                 //TODO: change this to block entity
-                this.level.setBlock(newPos, newBlocks.get(i));
+                if(newBlocks.get(i).getId() == Block.PUMPKIN || newBlocks.get(i).getId() == Block.MELON_BLOCK){
+                    this.level.dropItem(newPos, newBlocks.get(i).toItem());
+                } else {
+                    this.level.setBlock(newPos, newBlocks.get(i));
+                }
             }
 
             Vector3 pistonHead = pos.getSide(direction);
