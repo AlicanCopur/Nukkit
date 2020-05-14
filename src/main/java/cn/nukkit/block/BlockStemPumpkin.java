@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.Server;
 import cn.nukkit.event.block.BlockGrowEvent;
+import cn.nukkit.event.block.BlockChangeEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemSeedsPumpkin;
 import cn.nukkit.level.Level;
@@ -64,6 +65,8 @@ public class BlockStemPumpkin extends BlockCrops {
                         BlockGrowEvent ev = new BlockGrowEvent(side, Block.get(BlockID.PUMPKIN));
                         Server.getInstance().getPluginManager().callEvent(ev);
                         if (!ev.isCancelled()) {
+                            BlockChangeEvent ev2 = new BlockChangeEvent(this, Block.get(BlockID.PUMPKIN));
+                            Server.getInstance().getPluginManager().callEvent(ev2);
                             this.getLevel().setBlock(side, ev.getNewState(), true);
                         }
                     }

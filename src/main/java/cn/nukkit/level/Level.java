@@ -1688,14 +1688,12 @@ public class Level implements ChunkManager, Metadatable {
         Block blockPrevious;
 //        synchronized (chunk) {
         blockPrevious = chunk.getAndSetBlock(x & 0xF, y, z & 0xF, block);
-        if(block.getId() != blockPrevious.getId() || block.getDamage() != blockPrevious.getDamage()){
-            BlockChangeEvent blockChangeEvent = new BlockChangeEvent(block, blockPrevious);
-            this.server.getPluginManager().callEvent(blockChangeEvent);
-        }
         if (blockPrevious.getFullId() == block.getFullId()) {
             return false;
         }
 //        }
+        BlockChangeEvent blockChangeEvent = new BlockChangeEvent(block, blockPrevious);
+        this.server.getPluginManager().callEvent(blockChangeEvent);
         block.x = x;
         block.y = y;
         block.z = z;
