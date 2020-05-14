@@ -212,9 +212,9 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                 newBlock.position(newBlock.add(0).getSide(side));
                 
                 if(newBlock.getId() == Block.PUMPKIN || newBlock.getId() == Block.MELON_BLOCK){
-                    this.level.dropItem(newPos, newBlock.toItem());
+                    this.level.dropItem(newBlock, newBlock.toItem());
                     continue;
-                }
+                } 
                 
                 BlockEntity blockEntity = this.level.getBlockEntity(oldPos);
 
