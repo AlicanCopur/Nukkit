@@ -17,9 +17,7 @@ import cn.nukkit.network.protocol.LevelSoundEventPacket;
 import cn.nukkit.utils.Faceable;
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -211,10 +209,16 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                 Vector3 oldPos = newBlock.add(0);
                 newBlock.position(newBlock.add(0).getSide(side));
                 
-                if(newBlock.getId() == Block.PUMPKIN || newBlock.getId() == Block.MELON_BLOCK){
+                if(newBlock.getId() == Block.PUMPKIN){
                     this.level.dropItem(newBlock, newBlock.toItem());
                     continue;
                 } 
+                if(newBlock.getId() == Block.MELON_BLOCK){
+                    Random random = new Random();
+                    int count = random.nextInt(7 - 3 + 1) + 3;
+                    this.level.dropItem(newBlock, Item.get(Item.MELON, 0, count));
+                    continue;
+                }
                 
                 BlockEntity blockEntity = this.level.getBlockEntity(oldPos);
 
