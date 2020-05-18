@@ -58,4 +58,11 @@ public class BlockPodzol extends BlockDirt {
     public BlockColor getColor() {
         return BlockColor.SPRUCE_BLOCK_COLOR;
     }
+    
+    @Override
+    public Item[] getDrops(Item item) {
+        return new Item[]{
+            Item.get(Item.PODZOL, 0, 1);
+        };
+    }
 }
