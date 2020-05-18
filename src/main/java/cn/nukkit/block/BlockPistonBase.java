@@ -200,8 +200,9 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
             }
 
             List<Block> newBlocks = calculator.getBlocksToMove();
-
-            attached = newBlocks.stream().map(Vector3::asBlockVector3).collect(Collectors.toList());
+                //TODO: change this to block entity
+                this.level.setBlock(newPos, newBlocks.get(i));
+            attached = newBlocks.stream().map(Vector3::asBlockVector3).collect(Collectors.toList
 
             BlockFace side = extending ? direction : direction.getOpposite();
 
