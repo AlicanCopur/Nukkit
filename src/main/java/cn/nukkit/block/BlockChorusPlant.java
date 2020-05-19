@@ -40,16 +40,6 @@ public class BlockChorusPlant extends BlockTransparent {
     }
 
     @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
-    public boolean sticksToPiston() {
-        return false;
-    }
-
-    @Override
     public BlockColor getColor() {
         return BlockColor.PURPLE_BLOCK_COLOR;
     }

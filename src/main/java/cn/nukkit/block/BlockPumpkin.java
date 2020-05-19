@@ -64,12 +64,7 @@ public class BlockPumpkin extends BlockSolidMeta implements Faceable {
     }
 
     @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
-    public boolean sticksToPiston() {
+    public boolean canBePushed() {
         return false;
     }
 

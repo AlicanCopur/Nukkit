@@ -197,14 +197,4 @@ public class BlockBed extends BlockTransparentMeta implements Faceable {
     public BlockFace getBlockFace() {
         return BlockFace.fromHorizontalIndex(this.getDamage() & 0x7);
     }
-
-    @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
-    public boolean sticksToPiston() {
-        return false;
-    }
 }

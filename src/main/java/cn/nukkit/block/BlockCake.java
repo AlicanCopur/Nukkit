@@ -136,14 +136,4 @@ public class BlockCake extends BlockTransparentMeta {
     public boolean hasComparatorInputOverride() {
         return true;
     }
-
-    @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
-    public boolean sticksToPiston() {
-        return false;
-    }
 }
