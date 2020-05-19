@@ -112,9 +112,9 @@ public class BlockEntityBeacon extends BlockEntitySpawnable {
 
                     //If secondary is selected as the primary too, apply 2 amplification
                     if (getSecondaryPower() == getPrimaryPower()) {
-                        e.setAmplifier(2);
-                    } else {
                         e.setAmplifier(1);
+                    } else {
+                        e.setAmplifier(0);
                     }
 
                     //Hide particles
@@ -133,7 +133,7 @@ public class BlockEntityBeacon extends BlockEntitySpawnable {
                     e.setDuration(duration * 20);
 
                     //Regen I
-                    e.setAmplifier(1);
+                    e.setAmplifier(0);
 
                     //Hide particles
                     e.setVisible(false);
