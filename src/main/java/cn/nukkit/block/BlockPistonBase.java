@@ -17,7 +17,10 @@ import cn.nukkit.network.protocol.LevelSoundEventPacket;
 import cn.nukkit.utils.Faceable;
 import com.google.common.collect.Lists;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -200,27 +203,27 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
             }
 
             List<Block> newBlocks = calculator.getBlocksToMove();
-                //TODO: change this to block entity
-                this.level.setBlock(newPos, newBlocks.get(i));
-            attached = newBlocks.stream().map(Vector3::asBlockVector3).collect(Collectors.toList
+
+            attached = newBlocks.stream().map(Vector3::asBlockVector3).collect(Collectors.toList());
 
             BlockFace side = extending ? direction : direction.getOpposite();
 
             for (Block newBlock : newBlocks) {
                 Vector3 oldPos = newBlock.add(0);
-                newBlock.position(newBlock.add(0).getSide(side));
-                
+
                 if(newBlock.getId() == Block.PUMPKIN){
                     this.level.dropItem(newBlock, newBlock.toItem());
                     continue;
-                } 
+                }
                 if(newBlock.getId() == Block.MELON_BLOCK){
                     Random random = new Random();
                     int count = random.nextInt(7 - 3 + 1) + 3;
                     this.level.dropItem(newBlock, Item.get(Item.MELON, 0, count));
                     continue;
                 }
-                
+
+                newBlock.position(newBlock.add(0).getSide(side));
+
                 BlockEntity blockEntity = this.level.getBlockEntity(oldPos);
 
                 this.level.setBlock(newBlock, Block.get(BlockID.MOVING_BLOCK), true);
