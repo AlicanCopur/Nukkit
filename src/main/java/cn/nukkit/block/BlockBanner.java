@@ -136,11 +136,6 @@ public class BlockBanner extends BlockTransparentMeta implements Faceable {
     }
 
     @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
     public BlockColor getColor() {
         return this.getDyeColor().getColor();
     }

@@ -98,8 +98,4 @@ public interface Inventory {
     void onClose(Player who);
 
     void onSlotChange(int index, Item before, boolean send);
-
-    void addListener(InventoryListener listener);
-
-    void removeListener(InventoryListener listener);
 }

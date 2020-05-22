@@ -60,9 +60,7 @@ public abstract class Tag {
             out.print("(\"" + name + "\")");
         }
         out.print(": ");
-        if (getId() != TAG_Compound && getId() != TAG_List) {
-            out.println(parseValue());
-        }
+        out.println(toString());
     }
 
     public Tag setName(String name) {

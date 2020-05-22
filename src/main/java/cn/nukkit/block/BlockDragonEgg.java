@@ -3,7 +3,6 @@ package cn.nukkit.block;
 import cn.nukkit.level.Level;
 import cn.nukkit.network.protocol.LevelEventPacket;
 import cn.nukkit.utils.BlockColor;
-
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockDragonEgg extends BlockFallable {
@@ -73,15 +72,5 @@ public class BlockDragonEgg extends BlockFallable {
                 return;
             }
         }
-    }
-
-    @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
-    public boolean sticksToPiston() {
-        return false;
     }
 }

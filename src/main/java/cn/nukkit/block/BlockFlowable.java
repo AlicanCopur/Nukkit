@@ -38,16 +38,6 @@ public abstract class BlockFlowable extends BlockTransparentMeta {
     }
 
     @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
-    public boolean sticksToPiston() {
-        return false;
-    }
-
-    @Override
     protected AxisAlignedBB recalculateBoundingBox() {
         return null;
     }

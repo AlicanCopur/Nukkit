@@ -48,16 +48,11 @@ public class BlockUpdateScheduler {
             lastTick = tick;
             Set<BlockUpdateEntry> updates = pendingUpdates = queuedUpdates.remove(tick);
             if (updates != null) {
-                Iterator<BlockUpdateEntry> updateIterator = updates.iterator();
-
-                while (updateIterator.hasNext()) {
-                    BlockUpdateEntry entry = updateIterator.next();
-
+                for (BlockUpdateEntry entry : updates) {
                     Vector3 pos = entry.pos;
                     if (level.isChunkLoaded(NukkitMath.floorDouble(pos.x) >> 4, NukkitMath.floorDouble(pos.z) >> 4)) {
                         Block block = level.getBlock(entry.pos);
 
-                        updateIterator.remove();
                         if (Block.equals(block, entry.block, false)) {
                             block.onUpdate(Level.BLOCK_UPDATE_SCHEDULED);
                         }

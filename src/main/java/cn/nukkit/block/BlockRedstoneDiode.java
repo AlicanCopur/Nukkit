@@ -4,9 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.event.redstone.RedstoneUpdateEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
-import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.BlockFace;
-import cn.nukkit.math.SimpleAxisAlignedBB;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.utils.BlockColor;
 import cn.nukkit.utils.Faceable;
@@ -31,10 +29,8 @@ public abstract class BlockRedstoneDiode extends BlockFlowable implements Faceab
         Vector3 pos = getLocation();
         this.level.setBlock(this, Block.get(BlockID.AIR), true, true);
 
-        if (this.level.getServer().isRedstoneEnabled()) {
-            for (BlockFace face : BlockFace.values()) {
-                this.level.updateAroundRedstone(pos.getSide(face), null);
-            }
+        for (BlockFace face : BlockFace.values()) {
+            this.level.updateAroundRedstone(pos.getSide(face), null);
         }
         return true;
     }
@@ -48,10 +44,8 @@ public abstract class BlockRedstoneDiode extends BlockFlowable implements Faceab
         this.setDamage(player != null ? player.getDirection().getOpposite().getHorizontalIndex() : 0);
         this.level.setBlock(block, this, true, true);
 
-        if (this.level.getServer().isRedstoneEnabled()) {
-            if (shouldBePowered()) {
-                this.level.scheduleUpdate(this, 1);
-            }
+        if (shouldBePowered()) {
+            this.level.scheduleUpdate(this, 1);
         }
         return true;
     }
@@ -59,10 +53,6 @@ public abstract class BlockRedstoneDiode extends BlockFlowable implements Faceab
     @Override
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_SCHEDULED) {
-            if (!this.level.getServer().isRedstoneEnabled()) {
-                return 0;
-            }
-
             if (!this.isLocked()) {
                 Vector3 pos = getLocation();
                 boolean shouldBePowered = this.shouldBePowered();
@@ -76,22 +66,22 @@ public abstract class BlockRedstoneDiode extends BlockFlowable implements Faceab
                     this.level.updateAroundRedstone(this.getLocation().getSide(getFacing().getOpposite()), null);
 
                     if (!shouldBePowered) {
+//                        System.out.println("schedule update 2");
                         level.scheduleUpdate(getPowered(), this, this.getDelay());
                     }
                 }
             }
         } else if (type == Level.BLOCK_UPDATE_NORMAL || type == Level.BLOCK_UPDATE_REDSTONE) {
+            // Redstone event
+            RedstoneUpdateEvent ev = new RedstoneUpdateEvent(this);
+            getLevel().getServer().getPluginManager().callEvent(ev);
+            if (ev.isCancelled()) {
+                return 0;
+            }
             if (type == Level.BLOCK_UPDATE_NORMAL && this.getSide(BlockFace.DOWN).isTransparent()) {
                 this.level.useBreakOn(this);
                 return Level.BLOCK_UPDATE_NORMAL;
-            } else if (this.level.getServer().isRedstoneEnabled()) {
-                // Redstone event
-                RedstoneUpdateEvent ev = new RedstoneUpdateEvent(this);
-                getLevel().getServer().getPluginManager().callEvent(ev);
-                if (ev.isCancelled()) {
-                    return 0;
-                }
-
+            } else {
                 this.updateState();
                 return Level.BLOCK_UPDATE_NORMAL;
             }
@@ -208,11 +198,6 @@ public abstract class BlockRedstoneDiode extends BlockFlowable implements Faceab
         BlockFace side = getFacing().getOpposite();
         Block block = this.getSide(side);
         return block instanceof BlockRedstoneDiode && ((BlockRedstoneDiode) block).getFacing() != side;
-    }
-
-    @Override
-    protected AxisAlignedBB recalculateBoundingBox() {
-        return new SimpleAxisAlignedBB(this.x, this.y, this.z, this.x + 1, this.y + 0.125, this.z + 1);
     }
 
     @Override

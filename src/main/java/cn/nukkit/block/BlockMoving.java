@@ -46,22 +46,6 @@ public class BlockMoving extends BlockTransparent {
     public boolean isSolid() {
         return false;
     }
-    
-    @Override
-    public boolean canBePlaced() {
-        return false;
-    }
-    
-    @Override
-    public boolean canBeReplaced() {
-        return true;
-    }
-    
-    @Override
-    public BlockColor getColor() {
-        return BlockColor.AIR_BLOCK_COLOR;
-    }
-    
     @Override
     public Item toItem() {
         return Item.get(0);
