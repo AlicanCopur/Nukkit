@@ -3031,19 +3031,25 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     }
                                     
                                     this.setDataFlag(DATA_FLAGS, DATA_FLAG_ACTION, false);
-
+                                    System.out.println(0);
                                     if (this.canInteract(blockVector.add(0.5, 0.5, 0.5), this.isCreative() ? 13 : 7)) {
+                                        System.out.println(1);
                                         if (this.isCreative()) {
+                                            System.out.println(2);
                                             Item i = inventory.getItemInHand();
                                             if (this.level.useItemOn(blockVector.asVector3(), i, face, useItemData.clickPos.x, useItemData.clickPos.y, useItemData.clickPos.z, this) != null) {
+                                                System.out.println(3);
                                                 break packetswitch;
                                             }
                                         } else if (inventory.getItemInHand().equals(useItemData.itemInHand)) {
+                                            System.out.println(4);
                                             Item i = inventory.getItemInHand();
                                             Item oldItem = i.clone();
                                             //TODO: Implement adventure mode checks
                                             if ((i = this.level.useItemOn(blockVector.asVector3(), i, face, useItemData.clickPos.x, useItemData.clickPos.y, useItemData.clickPos.z, this)) != null) {
+                                                System.out.println(5);
                                                 if (!i.equals(oldItem) || i.getCount() != oldItem.getCount()) {
+                                                    System.out.println(6);
                                                     inventory.setItemInHand(i);
                                                     inventory.sendHeldItem(this.getViewers().values());
                                                 }
@@ -3051,6 +3057,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                             }
                                         }
                                     }
+                                    System.out.println(7);
 
                                     inventory.sendHeldItem(this);
 
