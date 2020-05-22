@@ -84,6 +84,11 @@ public class BlockStemPumpkin extends BlockCrops {
 
     @Override
     public Item[] getDrops(Item item) {
+        if (this.getDamage() < 0x07) {
+            return new Item[]{
+                new ItemSeedsPumpkin(0, 1)
+            };
+        }
         NukkitRandom random = new NukkitRandom();
         return new Item[]{
                 new ItemSeedsPumpkin(0, random.nextRange(0, 3))

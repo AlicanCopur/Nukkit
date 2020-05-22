@@ -8,8 +8,6 @@ package cn.nukkit.block;
 import cn.nukkit.Player;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntityShulkerBox;
-import cn.nukkit.inventory.ContainerInventory;
-import cn.nukkit.inventory.InventoryHolder;
 import cn.nukkit.inventory.ShulkerBoxInventory;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
@@ -160,33 +158,7 @@ public class BlockUndyedShulkerBox extends BlockTransparent {
     }
 
     @Override
-    public boolean hasComparatorInputOverride() {
-        return true;
-    }
-
-    @Override
-    public int getComparatorInputOverride() {
-        BlockEntity be = this.getLevel().getBlockEntity(this);
-
-        if (!(be instanceof InventoryHolder)) {
-            return 0;
-        }
-
-        return ContainerInventory.calculateRedstone(((InventoryHolder) be).getInventory());
-    }
-
-    @Override
     public BlockColor getColor() {
         return BlockColor.PURPLE_BLOCK_COLOR;
-    }
-
-    @Override
-    public boolean breaksWhenMoved() {
-        return true;
-    }
-
-    @Override
-    public boolean sticksToPiston() {
-        return false;
     }
 }

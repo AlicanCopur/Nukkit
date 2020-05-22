@@ -179,11 +179,6 @@ public class BlockEnderChest extends BlockTransparentMeta implements Faceable {
     }
 
     @Override
-    public boolean canBePulled() {
-        return false;
-    }
-
-    @Override
     public boolean canHarvestWithHand() {
         return false;
     }

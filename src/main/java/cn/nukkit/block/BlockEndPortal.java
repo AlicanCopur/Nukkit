@@ -60,6 +60,11 @@ public class BlockEndPortal extends BlockFlowable {
     }
 
     @Override
+    public boolean canBePushed() {
+        return false;
+    }
+
+    @Override
     public boolean canHarvestWithHand() {
         return false;
     }
