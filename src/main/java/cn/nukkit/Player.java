@@ -3073,17 +3073,21 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                                     Item oldItem = i.clone();
 
+                                    System.out.println(0);
                                     if (this.canInteract(blockVector.add(0.5, 0.5, 0.5), this.isCreative() ? 13 : 7) && (i = this.level.useBreakOn(blockVector.asVector3(), face, i, this, true)) != null) {
+                                        System.out.println(1);
                                         if (this.isSurvival()) {
+                                            System.out.println(2);
                                             this.getFoodData().updateFoodExpLevel(0.025);
                                             if (!i.equals(oldItem) || i.getCount() != oldItem.getCount()) {
+                                                System.out.println(3);
                                                 inventory.setItemInHand(i);
                                                 inventory.sendHeldItem(this.getViewers().values());
                                             }
                                         }
                                         break packetswitch;
                                     }
-
+                                    System.out.println(4);
                                     inventory.sendContents(this);
                                     target = this.level.getBlock(blockVector.asVector3());
                                     BlockEntity blockEntity = this.level.getBlockEntity(blockVector.asVector3());
