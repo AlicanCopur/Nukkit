@@ -35,7 +35,7 @@ public class BlockMoving extends BlockTransparent {
 
     @Override
     public boolean isBreakable(Item item) {
-        return false;
+        return true;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class BlockMoving extends BlockTransparent {
 
     @Override
     public BlockColor getColor() {
-        return BlockColor.AIR_BLOCK_COLOR;
+        return BlockColor.STONE_BLOCK_COLOR;
     }
 
     @Override
