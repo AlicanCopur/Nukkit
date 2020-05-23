@@ -1846,6 +1846,7 @@ public class Level implements ChunkManager, Metadatable {
         if (player != null && player.getGamemode() > 2) {
             return null;
         }
+        System.out.println(0);
         Block target = this.getBlock(vector);
         Item[] drops;
         int dropExp = target.getDropExp();
@@ -1857,6 +1858,7 @@ public class Level implements ChunkManager, Metadatable {
         boolean isSilkTouch = item.getEnchantment(Enchantment.ID_SILK_TOUCH) != null;
 
         if (player != null) {
+            System.out.println(1);
             if (player.getGamemode() == 2) {
                 Tag tag = item.getNamedTagEntry("CanDestroy");
                 boolean canBreak = false;
@@ -1875,6 +1877,7 @@ public class Level implements ChunkManager, Metadatable {
                     return null;
                 }
             }
+            System.out.println(2);
 
             double breakTime = target.getBreakTime(item, player);
             // this in
@@ -1909,6 +1912,7 @@ public class Level implements ChunkManager, Metadatable {
             } else {
                 eventDrops = target.getDrops(item);
             }
+            System.out.println(3);
 
             BlockBreakEvent ev = new BlockBreakEvent(player, target, face, item, eventDrops, player.isCreative(),
                     (player.lastBreak + breakTime * 1000) > System.currentTimeMillis());
@@ -1926,6 +1930,8 @@ public class Level implements ChunkManager, Metadatable {
                 return null;
             }
 
+            System.out.println(4);
+
             player.lastBreak = System.currentTimeMillis();
 
             drops = ev.getDrops();
@@ -1937,6 +1943,8 @@ public class Level implements ChunkManager, Metadatable {
         } else {
             drops = target.getDrops(item);
         }
+
+        System.out.println(5);
 
         Block above = this.getBlock(new Vector3(target.x, target.y + 1, target.z));
         if (above != null) {
