@@ -77,8 +77,13 @@ public class BlockMoving extends BlockTransparent {
     public boolean isSolid() {
         return false;
     }
+
     @Override
     public Item toItem() {
         return Item.get(0);
+    }
+
+    public Item[] getDrops() {
+        return new Item[]{Item.get(0)};
     }
 }
