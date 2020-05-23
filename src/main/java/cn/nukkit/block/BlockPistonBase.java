@@ -249,10 +249,6 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                 }
 
                 new BlockEntityMovingBlock(this.level.getChunk(newBlock.getChunkX(), newBlock.getChunkZ()), nbt);
-
-                if (this.level.getBlockIdAt(oldPos.getFloorX(), oldPos.getFloorY(), oldPos.getFloorZ()) != BlockID.MOVING_BLOCK) {
-                    this.level.setBlock(oldPos, Block.get(BlockID.AIR));
-                }
             }
         }
 
