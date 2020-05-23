@@ -1869,6 +1869,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         if (this.distanceSquared(pos) > maxDistance * maxDistance) {
             return false;
         }
+        System.out.println("maxDistance: " + maxDistance);
+        System.out.println("distanceSquared: " + this.distanceSquared(pos));
 
         Vector2 dV = this.getDirectionPlane();
         double dot = dV.dot(new Vector2(this.x, this.z));
