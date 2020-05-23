@@ -139,7 +139,6 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
 
     @Override
     public BaseInventory getInventory() {
-        this.spawnToAll();
         if (this.doubleInventory == null && this.isPaired()) {
             this.checkPairing();
         }
@@ -152,7 +151,6 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
     }
 
     protected void checkPairing() {
-        this.spawnToAll();
         BlockEntityChest pair = this.getPair();
 
         if (pair != null) {
@@ -201,12 +199,10 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
     }
 
     public boolean isPaired() {
-        this.spawnToAll();
         return this.namedTag.contains("pairx") && this.namedTag.contains("pairz");
     }
 
     public BlockEntityChest getPair() {
-        this.spawnToAll();
         if (this.isPaired()) {
             BlockEntity blockEntity = this.getLevel().getBlockEntityIfLoaded(new Vector3(this.namedTag.getInt("pairx"), this.y, this.namedTag.getInt("pairz")));
             if (blockEntity instanceof BlockEntityChest) {
