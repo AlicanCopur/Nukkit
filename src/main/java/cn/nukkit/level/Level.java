@@ -1,5 +1,6 @@
 package cn.nukkit.level;
 
+import cn.nukkit.AdventureSettings;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -1886,7 +1887,7 @@ public class Level implements ChunkManager, Metadatable {
                 eventDrops = target.getDrops(item);
             }
 
-            BlockBreakEvent ev = new BlockBreakEvent(player, target, face, item, eventDrops, player.isCreative(),
+            BlockBreakEvent ev = new BlockBreakEvent(player, target, face, item, eventDrops, player.getAdventureSettings().get(AdventureSettings.Type.FLYING),
                     (player.lastBreak + breakTime * 1000) > System.currentTimeMillis());
 
             if (player.isSurvival() && !target.isBreakable(item)) {

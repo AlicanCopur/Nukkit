@@ -228,6 +228,11 @@ public class BlockCocoa extends BlockFlowable implements Faceable {
     }
 
     @Override
+    public boolean isSolid() {
+        return true;
+    }
+
+    @Override
     public Item[] getDrops(Item item) {
         if (this.getDamage() >= 8) {
             return new Item[]{
