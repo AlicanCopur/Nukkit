@@ -1918,10 +1918,13 @@ public class Level implements ChunkManager, Metadatable {
                     (player.lastBreak + breakTime * 1000) > System.currentTimeMillis());
 
             if (player.isSurvival() && !target.isBreakable(item)) {
+                System.out.println(3.1);
                 ev.setCancelled();
             } else if(!player.isOp() && isInSpawnRadius(target)) {
+                System.out.println(3.2);
                 ev.setCancelled();
             } else if (!ev.getInstaBreak() && ev.isFastBreak()) {
+                System.out.println(3.3);
                 ev.setCancelled();
             }
 
