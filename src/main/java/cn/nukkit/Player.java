@@ -1869,8 +1869,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         if (this.distanceSquared(pos) > maxDistance * maxDistance) {
             return false;
         }
+        if(this.isSurvival() &&
+                this.getAdventureSettings().get(Type.FLYING) &&
+                this.distance(pos) <= 5) return true;
 
-        Vector2 dV = this.getDirectionPlane();
+                Vector2 dV = this.getDirectionPlane();
         double dot = dV.dot(new Vector2(this.x, this.z));
         double dot1 = dV.dot(new Vector2(pos.x, pos.z));
         return (dot1 - dot) >= -maxDiff;
@@ -3073,7 +3076,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                                     Item oldItem = i.clone();
 
-                                    if ((this.isSurvival() && this.getAdventureSettings().get(Type.FLYING) && this.distance(blockVector.asVector3()) <= 5) || this.canInteract(blockVector.add(0.5, 0.5, 0.5), this.isCreative() ? 13 : 7) && (i = this.level.useBreakOn(blockVector.asVector3(), face, i, this, true)) != null) {
+                                    if (this.canInteract(blockVector.add(0.5, 0.5, 0.5), this.isCreative() ? 13 : 7) && (i = this.level.useBreakOn(blockVector.asVector3(), face, i, this, true)) != null) {
                                         if (this.isSurvival()) {
                                             this.getFoodData().updateFoodExpLevel(0.025);
                                             if (!i.equals(oldItem) || i.getCount() != oldItem.getCount()) {
