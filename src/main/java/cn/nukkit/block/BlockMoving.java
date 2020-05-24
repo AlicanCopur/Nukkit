@@ -3,7 +3,7 @@ package cn.nukkit.block;
 import cn.nukkit.item.Item;
 import cn.nukkit.utils.BlockColor;
 
-public class BlockMoving extends BlockTransparent {
+public class BlockMoving extends BlockTransparentMeta {
 
     public BlockMoving() {
         this(0);
@@ -66,11 +66,6 @@ public class BlockMoving extends BlockTransparent {
     @Override
     public boolean canBeReplaced() {
         return true;
-    }
-
-    @Override
-    public BlockColor getColor() {
-        return BlockColor.STONE_BLOCK_COLOR;
     }
 
     @Override
