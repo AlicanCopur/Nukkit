@@ -194,7 +194,7 @@ public class EntityItem extends Entity {
                 if(this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == Block.ICE || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == Block.PACKED_ICE){
                     this.motionY = this.getGravity() - 0.04; //item is going up in water but item on the ice
                 } else {
-                    this.motionY = this.getGravity() - 0.01; //item is going up in water, don't let it go back down too fast
+                    this.motionY = this.getGravity() - 0.008; //item is going up in water, don't let it go back down too fast
                 }
             } else {
                 this.motionY -= this.getGravity(); //item is not in water
