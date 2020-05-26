@@ -199,6 +199,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
             List<Block> destroyBlocks = calculator.getBlocksToDestroy();
             for (int i = destroyBlocks.size() - 1; i >= 0; --i) {
                 Block block = destroyBlocks.get(i);
+                if(block.getId() == Block.REDSTONE_WIRE) continue;
                 this.level.useBreakOn(block, null, null, false);
             }
 
