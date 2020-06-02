@@ -237,10 +237,11 @@ public class BlockNoteblock extends BlockSolid {
         if (type == Level.BLOCK_UPDATE_REDSTONE) {
             BlockEntityMusic blockEntity = this.getBlockEntity();
             if (blockEntity != null) {
-                if (this.getLevel().isBlockPowered(this)) {
-                    if (!blockEntity.isPowered()) {
-                        blockEntity.setPowered(true);
-                    }
+                if (this.getLevel().isBlockPowered(this.getLocation())) {
+                    //if (!blockEntity.isPowered()) {
+                        //blockEntity.setPowered(true);
+                    //}
+                    this.emitSound();
                 } else {
                     blockEntity.setPowered(false);
                 }
