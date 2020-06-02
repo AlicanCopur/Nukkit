@@ -239,15 +239,23 @@ public class BlockNoteblock extends BlockSolid {
             BlockEntityMusic blockEntity = this.getBlockEntity();
             if (blockEntity != null) {
                 System.out.println(1);
-                if (this.getLevel().isBlockPowered(this.getLocation())) {
+                for(BlockFace face : BlockFace.values()){
+                    Block bl = this.getLevel().getBlock(this.getSide(face));
+                    if(bl.isPowerSource()){
+                        if(((BlockRedstoneDiode) bl).isPowered()){
+                            this.emitSound();
+                        }
+                    }
+                }
+                /*if (this.getLevel().isBlockPowered(this.getLocation())) {
                     System.out.println(2);
-                    //if (!blockEntity.isPowered()) {
-                        //blockEntity.setPowered(true);
-                    //}
+                    if (!blockEntity.isPowered()) {
+                        blockEntity.setPowered(true);
+                    }
                     this.emitSound();
                 } else {
                     blockEntity.setPowered(false);
-                }
+                }*/
             }
         }
         return super.onUpdate(type);
