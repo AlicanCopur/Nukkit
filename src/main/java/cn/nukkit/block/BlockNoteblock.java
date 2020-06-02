@@ -235,27 +235,16 @@ public class BlockNoteblock extends BlockSolid {
     @Override
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_REDSTONE) {
-            System.out.println(0);
             BlockEntityMusic blockEntity = this.getBlockEntity();
             if (blockEntity != null) {
-                System.out.println(1);
-                for(BlockFace face : BlockFace.values()){
-                    Block bl = this.getLevel().getBlock(this.getSide(face));
-                    if(bl.isPowerSource()){
-                        if(((BlockRedstoneDiode) bl).isPowered()){
-                            this.emitSound();
-                        }
-                    }
-                }
-                /*if (this.getLevel().isBlockPowered(this.getLocation())) {
-                    System.out.println(2);
+                if (this.getLevel().isBlockPowered(this.getLocation())) {
                     if (!blockEntity.isPowered()) {
                         blockEntity.setPowered(true);
                     }
                     this.emitSound();
                 } else {
                     blockEntity.setPowered(false);
-                }*/
+                }
             }
         }
         return super.onUpdate(type);
