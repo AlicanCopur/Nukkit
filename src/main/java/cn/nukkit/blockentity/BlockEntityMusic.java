@@ -1,6 +1,7 @@
 package cn.nukkit.blockentity;
 
 import cn.nukkit.block.Block;
+import cn.nukkit.block.BlockNoteblock;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 
@@ -37,6 +38,9 @@ public class BlockEntityMusic extends BlockEntity {
 
     public void setPowered(boolean powered) {
         this.namedTag.putBoolean("powered", powered);
+        if(powered){
+            ((BlockNoteblock)this.getBlock()).emitSound();
+        }
     }
 
     public boolean isPowered() {
