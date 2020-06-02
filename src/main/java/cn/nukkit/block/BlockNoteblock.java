@@ -238,7 +238,7 @@ public class BlockNoteblock extends BlockSolid {
             BlockEntityMusic blockEntity = this.getBlockEntity();
             if (blockEntity != null) {
                 if (this.getLevel().isBlockPowered(this)) {
-                    if (!blockEntity.isPowered()) {
+                    if (blockEntity.isPowered()) {
                         this.emitSound();
                     }
                     blockEntity.setPowered(true);
