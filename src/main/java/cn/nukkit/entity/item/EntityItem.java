@@ -189,9 +189,9 @@ public class EntityItem extends Entity {
             }
 
             if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) { //item is fully in water or in still water
-                this.motionY -= this.getGravity() * -0.015;
+                this.motionY -= this.getGravity() * -0.008; //0.015
             } else if (this.isInsideOfWater()) {
-                this.motionY = this.getGravity() - 0.06; //item is going up in water, don't let it go back down too fast
+                this.motionY = this.getGravity() - 0.04; //0.06 //item is going up in water, don't let it go back down too fast
             } else {
                 this.motionY -= this.getGravity(); //item is not in water
             }
