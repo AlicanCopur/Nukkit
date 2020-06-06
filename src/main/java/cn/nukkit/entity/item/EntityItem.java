@@ -60,11 +60,9 @@ public class EntityItem extends Entity {
     public float getGravity() {
         if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) {
             if(this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == BlockID.ICE || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == BlockID.PACKED_ICE){
-                System.out.println(0);
                 return 0.025f;
             }
         }
-        System.out.println(1);
         return 0.09f;
     }
 
