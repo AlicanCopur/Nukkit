@@ -57,7 +57,10 @@ public class EntityItem extends Entity {
 
     @Override
     public float getGravity() {
-        return 0.07f;
+        if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) {
+            return 0.05f;
+        }
+        return 0.09f;
     }
 
     @Override
@@ -189,10 +192,10 @@ public class EntityItem extends Entity {
             }
 
             if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) {
-                this.motionY -= this.getGravity() * -0.005; //item is fully in water or in still water
+                this.motionY -= this.getGravity() * -0.015; //item is fully in water or in still water
                 System.out.println(0);
             } else if (this.isInsideOfWater()) {
-                this.motionY -= this.getGravity() * -0.015; //this.motionY = this.getGravity() - 0.06; //item is going up in water, don't let it go back down too fast
+                this.motionY = this.getGravity() - 0.06; //this.motionY = this.getGravity() - 0.06; //item is going up in water, don't let it go back down too fast
                 System.out.println(1);
             } else {
                 this.motionY -= this.getGravity(); //item is not in water
