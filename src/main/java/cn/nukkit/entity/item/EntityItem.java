@@ -57,7 +57,7 @@ public class EntityItem extends Entity {
 
     @Override
     public float getGravity() {
-        return 0.04f;
+        return 0.07f;
     }
 
     @Override
