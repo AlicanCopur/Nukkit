@@ -60,10 +60,10 @@ public class EntityItem extends Entity {
     public float getGravity() {
         if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) {
             if(this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == BlockID.ICE || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == BlockID.PACKED_ICE){
-                return 0.025f;
+                return 0.03f;
             }
         }
-        return 0.09f;
+        return 0.1f;
     }
 
     @Override
@@ -121,9 +121,9 @@ public class EntityItem extends Entity {
                 source.getCause() == DamageCause.CONTACT ||
                 source.getCause() == DamageCause.FIRE_TICK ||
                 (source.getCause() == DamageCause.ENTITY_EXPLOSION ||
-                source.getCause() == DamageCause.BLOCK_EXPLOSION) &&
-                !this.isInsideOfWater() && (this.item == null ||
-                this.item.getId() != Item.NETHER_STAR)) && super.attack(source);
+                        source.getCause() == DamageCause.BLOCK_EXPLOSION) &&
+                        !this.isInsideOfWater() && (this.item == null ||
+                        this.item.getId() != Item.NETHER_STAR)) && super.attack(source);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class EntityItem extends Entity {
         this.lastUpdate = currentTick;
 
         this.timing.startTiming();
-        
+
         if (this.age % 60 == 0 && this.onGround && this.getItem() != null && this.isAlive()) {
             if (this.getItem().getCount() < this.getItem().getMaxStackSize()) {
                 for (Entity entity : this.getLevel().getNearbyEntities(getBoundingBox().grow(1, 1, 1), this, false)) {
@@ -153,7 +153,7 @@ public class EntityItem extends Entity {
                         if (!closeItem.equals(getItem(), true, true)) {
                             continue;
                         }
-                        if(!entity.isOnGround()) {
+                        if (!entity.isOnGround()) {
                             continue;
                         }
                         int newAmount = this.getItem().getCount() + closeItem.getCount();
@@ -197,7 +197,7 @@ public class EntityItem extends Entity {
             if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) {
                 this.motionY -= this.getGravity() * -0.015; //item is fully in water or in still water
             } else if (this.isInsideOfWater()) {
-                this.motionY -= this.getGravity() * -0.015; //this.motionY = this.getGravity() - 0.06; //item is going up in water, don't let it go back down too fast
+                this.motionY = this.getGravity() - 0.06; //item is going up in water, don't let it go back down too fast
             } else {
                 this.motionY -= this.getGravity(); //item is not in water
             }
