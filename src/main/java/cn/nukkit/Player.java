@@ -1868,8 +1868,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         if (this.distanceSquared(pos) > maxDistance * maxDistance) {
             return false;
         }
+        if(this.isSurvival() &&
+                this.getAdventureSettings().get(Type.FLYING) &&
+                this.distance(pos) <= 5) return true;
 
-        Vector2 dV = this.getDirectionPlane();
+                Vector2 dV = this.getDirectionPlane();
         double dot = dV.dot(new Vector2(this.x, this.z));
         double dot1 = dV.dot(new Vector2(pos.x, pos.z));
         return (dot1 - dot) >= -maxDiff;
@@ -3037,7 +3040,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     }
                                     
                                     this.setDataFlag(DATA_FLAGS, DATA_FLAG_ACTION, false);
-
                                     if (this.canInteract(blockVector.add(0.5, 0.5, 0.5), this.isCreative() ? 13 : 7)) {
                                         if (this.isCreative()) {
                                             Item i = inventory.getItemInHand();
@@ -3090,7 +3092,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                         }
                                         break packetswitch;
                                     }
-
                                     inventory.sendContents(this);
                                     target = this.level.getBlock(blockVector.asVector3());
                                     BlockEntity blockEntity = this.level.getBlockEntity(blockVector.asVector3());

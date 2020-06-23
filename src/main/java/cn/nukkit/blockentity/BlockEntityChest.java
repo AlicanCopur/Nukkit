@@ -175,6 +175,7 @@ public class BlockEntityChest extends BlockEntitySpawnable implements InventoryH
                 this.namedTag.remove("pairz");
             }
         }
+        this.spawnToAll();
     }
 
     @Override

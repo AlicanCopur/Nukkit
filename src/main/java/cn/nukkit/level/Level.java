@@ -1,5 +1,6 @@
 package cn.nukkit.level;
 
+import cn.nukkit.AdventureSettings;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
@@ -14,6 +15,7 @@ import cn.nukkit.entity.weather.EntityLightning;
 import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.BlockPlaceEvent;
 import cn.nukkit.event.block.BlockUpdateEvent;
+import cn.nukkit.event.block.BlockChangeEvent;
 import cn.nukkit.event.level.*;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerInteractEvent.Action;
@@ -1732,7 +1734,10 @@ public class Level implements ChunkManager, Metadatable {
         } else {
             addBlockChange(index, x, y, z);
         }
-
+        
+        BlockChangeEvent blockChangeEvent = new BlockChangeEvent(block, blockPrevious);
+        this.server.getPluginManager().callEvent(blockChangeEvent);
+        
         for (ChunkLoader loader : this.getChunkLoaders(cx, cz)) {
             loader.onBlockChanged(block);
         }
@@ -1906,7 +1911,7 @@ public class Level implements ChunkManager, Metadatable {
                 eventDrops = target.getDrops(item);
             }
 
-            BlockBreakEvent ev = new BlockBreakEvent(player, target, face, item, eventDrops, player.isCreative(),
+            BlockBreakEvent ev = new BlockBreakEvent(player, target, face, item, eventDrops, player.getAdventureSettings().get(AdventureSettings.Type.FLYING),
                     (player.lastBreak + breakTime * 1000) > System.currentTimeMillis());
 
             if (player.isSurvival() && !target.isBreakable(item)) {
