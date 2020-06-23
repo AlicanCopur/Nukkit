@@ -19,7 +19,8 @@ public abstract class BlockFlowable extends BlockTransparentMeta {
 
     @Override
     public boolean canPassThrough() {
-        return true;
+        //TODO: Check it
+        return false;
     }
 
     @Override
