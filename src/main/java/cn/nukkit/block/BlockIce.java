@@ -47,11 +47,12 @@ public class BlockIce extends BlockTransparent {
 
     @Override
     public boolean onBreak(Item item) {
-        if (this.getLevel().getDimension() != Level.DIMENSION_NETHER) {
-            return this.getLevel().setBlock(this, Block.get(BlockID.WATER), true);
+        if (item.getEnchantment(Enchantment.ID_SILK_TOUCH) == null && this.getLevel().getDimension() != Level.DIMENSION_NETHER) {
+            this.getLevel().setBlock(this, Block.get(BlockID.WATER), true);
         } else {
-            return super.onBreak(item);
+            this.getLevel().setBlock(this, Block.get(BlockID.AIR), true);
         }
+        return true;
     }
 
     @Override
