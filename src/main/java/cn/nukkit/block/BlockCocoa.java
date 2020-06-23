@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Created by CreeperFace on 27. 10. 2016.
  */
-public class BlockCocoa extends BlockFlowable implements Faceable {
+public class BlockCocoa extends BlockCrops implements Faceable {
 
     protected static final AxisAlignedBB[] EAST = new SimpleAxisAlignedBB[]{new SimpleAxisAlignedBB(0.6875D, 0.4375D, 0.375D, 0.9375D, 0.75D, 0.625D), new SimpleAxisAlignedBB(0.5625D, 0.3125D, 0.3125D, 0.9375D, 0.75D, 0.6875D), new SimpleAxisAlignedBB(0.5625D, 0.3125D, 0.3125D, 0.9375D, 0.75D, 0.6875D)};
     protected static final AxisAlignedBB[] WEST = new SimpleAxisAlignedBB[]{new SimpleAxisAlignedBB(0.0625D, 0.4375D, 0.375D, 0.3125D, 0.75D, 0.625D), new SimpleAxisAlignedBB(0.0625D, 0.3125D, 0.3125D, 0.4375D, 0.75D, 0.6875D), new SimpleAxisAlignedBB(0.0625D, 0.3125D, 0.3125D, 0.4375D, 0.75D, 0.6875D)};
@@ -226,21 +226,6 @@ public class BlockCocoa extends BlockFlowable implements Faceable {
     @Override
     public Item toItem() {
         return new ItemDye(DyeColor.BROWN.getDyeData());
-    }
-
-    @Override
-    public boolean isSolid() {
-        return true;
-    }
-
-    @Override
-    public boolean hasEntityCollision() {
-        return true;
-    }
-
-    @Override
-    public void onEntityCollide(Entity entity) {
-        entity.onGround = true;
     }
 
     @Override
