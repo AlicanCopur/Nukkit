@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Created by CreeperFace on 27. 10. 2016.
  */
-public class BlockCocoa extends BlockCrops implements Faceable {
+public class BlockCocoa extends BlockTransparentMeta implements Faceable {
 
     protected static final AxisAlignedBB[] EAST = new SimpleAxisAlignedBB[]{new SimpleAxisAlignedBB(0.6875D, 0.4375D, 0.375D, 0.9375D, 0.75D, 0.625D), new SimpleAxisAlignedBB(0.5625D, 0.3125D, 0.3125D, 0.9375D, 0.75D, 0.6875D), new SimpleAxisAlignedBB(0.5625D, 0.3125D, 0.3125D, 0.9375D, 0.75D, 0.6875D)};
     protected static final AxisAlignedBB[] WEST = new SimpleAxisAlignedBB[]{new SimpleAxisAlignedBB(0.0625D, 0.4375D, 0.375D, 0.3125D, 0.75D, 0.625D), new SimpleAxisAlignedBB(0.0625D, 0.3125D, 0.3125D, 0.4375D, 0.75D, 0.6875D), new SimpleAxisAlignedBB(0.0625D, 0.3125D, 0.3125D, 0.4375D, 0.75D, 0.6875D)};
@@ -254,5 +254,10 @@ public class BlockCocoa extends BlockCrops implements Faceable {
     @Override
     public boolean sticksToPiston() {
         return false;
+    }
+
+    @Override
+    public boolean canBeFlowedInto() {
+        return true;
     }
 }
