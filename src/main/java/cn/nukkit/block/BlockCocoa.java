@@ -234,6 +234,11 @@ public class BlockCocoa extends BlockFlowable implements Faceable {
     }
 
     @Override
+    public boolean hasEntityCollision() {
+        return true;
+    }
+
+    @Override
     public void onEntityCollide(Entity entity) {
         entity.onGround = true;
     }
