@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.entity.Entity;
 import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemDye;
@@ -230,6 +231,11 @@ public class BlockCocoa extends BlockFlowable implements Faceable {
     @Override
     public boolean isSolid() {
         return true;
+    }
+
+    @Override
+    public void onEntityCollide(Entity entity) {
+        entity.onGround = true;
     }
 
     @Override
