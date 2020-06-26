@@ -212,18 +212,25 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
             for (Block newBlock : newBlocks) {
                 Vector3 oldPos = newBlock.add(0);
 
+                newBlock.position(newBlock.add(0).getSide(side));
+
                 if(newBlock.getId() == Block.PUMPKIN){
-                    this.level.dropItem(newBlock, newBlock.toItem());
+                    if(oldPos.getX() != newBlock.getX()
+                    && oldPos.getY() != newBlock.getY()
+                    && oldPos.getZ() != newBlock.getZ())
+                        this.level.dropItem(newBlock, newBlock.toItem());
                     continue;
                 }
                 if(newBlock.getId() == Block.MELON_BLOCK){
-                    Random random = new Random();
-                    int count = random.nextInt(7 - 3 + 1) + 3;
-                    this.level.dropItem(newBlock, Item.get(Item.MELON, 0, count));
+                    if(oldPos.getX() != newBlock.getX()
+                            && oldPos.getY() != newBlock.getY()
+                            && oldPos.getZ() != newBlock.getZ()){
+                        Random random = new Random();
+                        int count = random.nextInt(7 - 3 + 1) + 3;
+                        this.level.dropItem(newBlock, Item.get(Item.MELON, 0, count));
+                    }
                     continue;
                 }
-
-                newBlock.position(newBlock.add(0).getSide(side));
 
                 BlockEntity blockEntity = this.level.getBlockEntity(oldPos);
 
