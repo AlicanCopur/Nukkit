@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.entity.Entity;
 import cn.nukkit.item.Item;
 import cn.nukkit.utils.BlockColor;
 
@@ -41,6 +42,11 @@ public class BlockMoving extends BlockTransparentMeta {
     @Override
     public boolean canPassThrough() {
         return true;
+    }
+
+    @Override
+    public void onEntityCollide(Entity entity) {
+        this.getLevel().setBlock(this, Block.get(Block.AIR));
     }
 
     @Override
