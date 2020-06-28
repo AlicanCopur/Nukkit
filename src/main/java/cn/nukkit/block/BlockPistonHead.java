@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.Player;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
@@ -73,16 +74,6 @@ public class BlockPistonHead extends BlockTransparentMeta implements Faceable {
     }
 
     @Override
-    public boolean canBePlaced() {
-        return false;
-    }
-
-    @Override
-    public boolean canBeReplaced() {
-        return true;
-    }
-
-    @Override
     public boolean isSolid() {
         return false;
     }
@@ -94,7 +85,9 @@ public class BlockPistonHead extends BlockTransparentMeta implements Faceable {
 
     @Override
     public void onEntityCollide(Entity entity) {
-        this.getLevel().setBlock(this, Block.get(Block.AIR));
+        if(entity instanceof Player){
+            this.getLevel().setBlock(this, Block.get(Block.AIR));
+        }
     }
 
     @Override
