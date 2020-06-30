@@ -83,12 +83,12 @@ public class BlockPistonHead extends BlockTransparentMeta implements Faceable {
         return true;
     }
 
-    @Override
+    /*@Override
     public void onEntityCollide(Entity entity) {
         if(entity instanceof Player){
             this.getLevel().setBlock(this, Block.get(Block.AIR));
         }
-    }
+    }*/
 
     @Override
     public Item toItem() {
