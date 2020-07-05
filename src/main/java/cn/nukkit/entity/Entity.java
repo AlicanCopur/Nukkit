@@ -1085,13 +1085,6 @@ public abstract class Entity extends Location implements Metadatable {
                 || source.getCause() == DamageCause.LAVA)) {
             return false;
         }
-        if(this instanceof EntityItem){
-            EntityItem ei = (EntityItem) this;
-            Item i = ei.getItem();
-            if(Arrays.asList(Item.NETHERITE_AXE, Item.NETHERITE_SHOVEL, Item.NETHERITE_SWORD, Item.NETHERITE_PICKAXE, Item.NETHERITE_HOE, Item.NETHERITE_HELMET, Item.NETHERITE_CHESTPLATE, Item.NETHERITE_LEGGINGS, Item.NETHERITE_BOOTS).contains(i.getId())){
-                return false;
-            }
-        }
 
         getServer().getPluginManager().callEvent(source);
         if (source.isCancelled()) {
