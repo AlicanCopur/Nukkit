@@ -305,6 +305,7 @@ public class Item implements Cloneable, BlockID, ItemID {
 
             list[SHIELD] = ItemShield.class; //513
 
+            list[NETHERITE_INGOT] = ItemIngotNetherite.class;
             list[NETHERITE_SWORD] = ItemSwordNetherite.class;
             list[NETHERITE_SHOVEL] = ItemShovelNetherite.class;
             list[NETHERITE_PICKAXE] = ItemPickaxeNetherite.class;
