@@ -23,4 +23,14 @@ public class BlockPistonSticky extends BlockPistonBase {
     public String getName() {
         return "Sticky Piston";
     }
+
+    @Override
+    public boolean canBePushed() {
+        return false;
+    }
+
+    @Override
+    public boolean canBePulled() {
+        return false;
+    }
 }
