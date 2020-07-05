@@ -575,6 +575,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             case ItemTool.TIER_DIAMOND:
                 return 8.0;
             case ItemTool.TIER_GOLD:
+            case ItemTool.TIER_NETHERITE:
                 return 12.0;
             default:
                 return 1.0;
@@ -680,6 +681,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                         base /= 8;
                         break;
                     case ItemTool.TIER_GOLD:
+                    case ItemTool.TIER_NETHERITE:
                         base /= 12;
                         break;
                 }
