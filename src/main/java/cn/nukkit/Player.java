@@ -34,6 +34,7 @@ import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.inventory.*;
 import cn.nukkit.inventory.transaction.CraftingTransaction;
+import cn.nukkit.inventory.transaction.EnchantTransaction;
 import cn.nukkit.inventory.transaction.InventoryTransaction;
 import cn.nukkit.inventory.transaction.action.InventoryAction;
 import cn.nukkit.inventory.transaction.data.ReleaseItemData;
@@ -154,6 +155,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     protected PlayerUIInventory playerUIInventory;
     protected CraftingGrid craftingGrid;
     protected CraftingTransaction craftingTransaction;
+    protected EnchantTransaction enchantTransaction;
 
     public long creationTime = 0;
 
@@ -2176,7 +2178,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 (c >= 'A' && c <= 'Z') ||
                                 (c >= '0' && c <= '9') ||
                                 c == '_' || c == ' '
-                                ) {
+                        ) {
                             continue;
                         }
 
@@ -2293,7 +2295,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     PlayerSkinPacket skinPacket = (PlayerSkinPacket) packet;
                     Skin skin = skinPacket.skin;
 
-                    if(!skin.isValid()) {
+                    if (!skin.isValid()) {
                         break;
                     }
 
@@ -2695,7 +2697,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         int itemSlot = -1;
                         for (int slot = 0; slot < this.inventory.getSize(); slot++) {
                             if (this.inventory.getItem(slot).equals(pickEvent.getItem())) {
-                                if(slot < this.inventory.getHotbarSize()) {
+                                if (slot < this.inventory.getHotbarSize()) {
                                     this.inventory.setHeldItemSlot(slot);
                                 } else {
                                     itemSlot = slot;
@@ -2705,13 +2707,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             }
                         }
 
-                        for(int slot = 0; slot < this.inventory.getHotbarSize(); slot++) {
-                            if(this.inventory.getItem(slot).isNull()) {
-                                if(!itemExists && this.isCreative()) {
+                        for (int slot = 0; slot < this.inventory.getHotbarSize(); slot++) {
+                            if (this.inventory.getItem(slot).isNull()) {
+                                if (!itemExists && this.isCreative()) {
                                     this.inventory.setHeldItemSlot(slot);
                                     this.inventory.setItemInHand(pickEvent.getItem());
                                     break packetswitch;
-                                } else if(itemSlot > -1) {
+                                } else if (itemSlot > -1) {
                                     this.inventory.setHeldItemSlot(slot);
                                     this.inventory.setItemInHand(this.inventory.getItem(itemSlot));
                                     this.inventory.clear(itemSlot, true);
@@ -2720,18 +2722,18 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             }
                         }
 
-                        if(!itemExists && this.isCreative()) {
+                        if (!itemExists && this.isCreative()) {
                             Item itemInHand = this.inventory.getItemInHand();
                             this.inventory.setItemInHand(pickEvent.getItem());
-                            if(!this.inventory.isFull()) {
-                                for(int slot = 0; slot < this.inventory.getSize(); slot++) {
-                                    if(this.inventory.getItem(slot).isNull()) {
+                            if (!this.inventory.isFull()) {
+                                for (int slot = 0; slot < this.inventory.getSize(); slot++) {
+                                    if (this.inventory.getItem(slot).isNull()) {
                                         this.inventory.setItem(slot, itemInHand);
                                         break;
                                     }
                                 }
                             }
-                        } else if(itemSlot > -1) {
+                        } else if (itemSlot > -1) {
                             Item itemInHand = this.inventory.getItemInHand();
                             this.inventory.setItemInHand(this.inventory.getItem(itemSlot));
                             this.inventory.setItem(itemSlot, itemInHand);
@@ -2790,14 +2792,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                             this.dataPacket(entityEventPacket);
                             Server.broadcastPacket(this.getViewers().values(), entityEventPacket);
-                            break;
-                        case EntityEventPacket.ENCHANT:
-                            if (entityEventPacket.eid != this.id) {
-                                break;
-                            }
-
-                            int levels = entityEventPacket.data; // Sent as negative number of levels lost
-                            if (levels < 0) this.setExperience(this.exp, this.expLevel + levels);
                             break;
                     }
                     break;
@@ -2998,7 +2992,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             }
                         }
 
-                        if (this.craftingTransaction.getPrimaryOutput() != null) {
+                        if (this.craftingTransaction.getPrimaryOutput() != null && this.craftingTransaction.canExecute()) {
                             //we get the actions for this in several packets, so we can't execute it until we get the result
 
                             this.craftingTransaction.execute();
@@ -3006,15 +3000,42 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         }
 
                         return;
+                    } else if (transactionPacket.isEnchantingPart) {
+                        if (this.enchantTransaction == null) {
+                            this.enchantTransaction = new EnchantTransaction(this, actions);
+                        } else {
+                            for (InventoryAction action : actions) {
+                                this.enchantTransaction.addAction(action);
+                            }
+                        }
+                        if (this.enchantTransaction.canExecute()) {
+                            this.enchantTransaction.execute();
+                            this.enchantTransaction = null;
+                        }
+                        return;
                     } else if (this.craftingTransaction != null) {
-                        if(craftingTransaction.checkForCraftingPart(actions)){
+                        if (craftingTransaction.checkForCraftingPart(actions)) {
                             for (InventoryAction action : actions) {
                                 craftingTransaction.addAction(action);
                             }
                             return;
                         } else {
                             this.server.getLogger().debug("Got unexpected normal inventory action with incomplete crafting transaction from " + this.getName() + ", refusing to execute crafting");
+                            this.removeAllWindows(false);
+                            this.sendAllInventories();
                             this.craftingTransaction = null;
+                        }
+                    } else if (this.enchantTransaction != null) {
+                        if (enchantTransaction.checkForEnchantPart(actions)) {
+                            for (InventoryAction action : actions) {
+                                enchantTransaction.addAction(action);
+                            }
+                            return;
+                        } else {
+                            this.server.getLogger().debug("Got unexpected normal inventory action with incomplete enchanting transaction from " + this.getName() + ", refusing to execute enchant " + transactionPacket.toString());
+                            this.removeAllWindows(false);
+                            this.sendAllInventories();
+                            this.enchantTransaction = null;
                         }
                     }
 
@@ -4571,7 +4592,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.permanentWindows.add(cnt);
         }
 
-        if (inventory.open(this)) {
+        if (this.spawned && inventory.open(this)) {
             return cnt;
         } else {
             this.removeWindow(inventory);
