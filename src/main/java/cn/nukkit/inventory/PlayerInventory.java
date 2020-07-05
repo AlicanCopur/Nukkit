@@ -500,14 +500,16 @@ public class PlayerInventory extends BaseInventory {
     @Override
     public void onOpen(Player who) {
         super.onOpen(who);
-        ContainerOpenPacket pk = new ContainerOpenPacket();
-        pk.windowId = who.getWindowId(this);
-        pk.type = this.getType().getNetworkType();
-        pk.x = who.getFloorX();
-        pk.y = who.getFloorY();
-        pk.z = who.getFloorZ();
-        pk.entityId = who.getId();
-        who.dataPacket(pk);
+        if (who.spawned) {
+            ContainerOpenPacket pk = new ContainerOpenPacket();
+            pk.windowId = who.getWindowId(this);
+            pk.type = this.getType().getNetworkType();
+            pk.x = who.getFloorX();
+            pk.y = who.getFloorY();
+            pk.z = who.getFloorZ();
+            pk.entityId = who.getId();
+            who.dataPacket(pk);
+        }
     }
 
     @Override
@@ -515,9 +517,8 @@ public class PlayerInventory extends BaseInventory {
         ContainerClosePacket pk = new ContainerClosePacket();
         pk.windowId = who.getWindowId(this);
         who.dataPacket(pk);
-        // player can never stop viewing their own inventory
-        if (who != holder) {
+        //super.onClose(who);
+        if (who.getId() != this.getHolder().getId())
             super.onClose(who);
-        }
     }
 }
