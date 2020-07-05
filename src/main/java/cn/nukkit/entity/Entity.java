@@ -5,6 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.block.*;
 import cn.nukkit.blockentity.BlockEntityPistonArm;
 import cn.nukkit.entity.data.*;
+import cn.nukkit.entity.item.EntityItem;
 import cn.nukkit.event.Event;
 import cn.nukkit.event.entity.*;
 import cn.nukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -1083,6 +1084,13 @@ public abstract class Entity extends Location implements Metadatable {
                 || source.getCause() == DamageCause.FIRE_TICK
                 || source.getCause() == DamageCause.LAVA)) {
             return false;
+        }
+        if(this instanceof EntityItem){
+            EntityItem ei = (EntityItem) this;
+            Item i = ei.getItem();
+            if(Arrays.asList(Item.NETHERITE_AXE, Item.NETHERITE_SHOVEL, Item.NETHERITE_SWORD, Item.NETHERITE_PICKAXE, Item.NETHERITE_HOE, Item.NETHERITE_HELMET, Item.NETHERITE_CHESTPLATE, Item.NETHERITE_LEGGINGS, Item.NETHERITE_BOOTS).contains(i.getId())){
+                return false;
+            }
         }
 
         getServer().getPluginManager().callEvent(source);
