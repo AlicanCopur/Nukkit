@@ -247,5 +247,13 @@ public interface ItemID {
 
     int SHIELD = 513;
 
+    int NETHERITE_SWORD = 743;
+    int NETHERITE_SHOVEL = 744;
     int NETHERITE_PICKAXE = 745;
+    int NETHERITE_AXE = 746;
+    int NETHERITE_HOE = 747;
+    int NETHERITE_HELMET = 748;
+    int NETHERITE_CHESTPLATE = 749;
+    int NETHERITE_LEGGINGS = 750;
+    int NETHERITE_BOOTS = 751;
 }

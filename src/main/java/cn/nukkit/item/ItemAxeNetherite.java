@@ -4,17 +4,18 @@ package cn.nukkit.item;
  * author: AlicanCopur
  * Nukkit Project
  */
-public class ItemPickaxeNetherite extends ItemTool{
-    public ItemPickaxeNetherite() {
+public class ItemAxeNetherite extends ItemTool {
+
+    public ItemAxeNetherite() {
         this(0, 1);
     }
 
-    public ItemPickaxeNetherite(Integer meta) {
+    public ItemAxeNetherite(Integer meta) {
         this(meta, 1);
     }
 
-    public ItemPickaxeNetherite(Integer meta, int count) {
-        super(NETHERITE_PICKAXE, meta, count, "Netherite Pickaxe");
+    public ItemAxeNetherite(Integer meta, int count) {
+        super(NETHERITE_AXE, meta, count, "Netherite Axe");
     }
 
     @Override
@@ -23,7 +24,7 @@ public class ItemPickaxeNetherite extends ItemTool{
     }
 
     @Override
-    public boolean isPickaxe() {
+    public boolean isAxe() {
         return true;
     }
 
@@ -34,6 +35,6 @@ public class ItemPickaxeNetherite extends ItemTool{
 
     @Override
     public int getAttackDamage() {
-        return 6;
+        return 7;
     }
 }
