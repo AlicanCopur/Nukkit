@@ -642,6 +642,13 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         }
 
         boolean correctTool = correctTool0(getToolType(), item);
+        if(!correctTool){
+            if(this.getId() == Block.LEAVES || this.getId() == Block.LEAVES2){
+                if(item.isHoe()){
+                    correctTool = true;
+                }
+            }
+        }
         boolean canHarvestWithHand = canHarvestWithHand();
         int blockId = getId();
         int itemToolType = toolType0(item);
