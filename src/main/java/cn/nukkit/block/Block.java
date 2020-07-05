@@ -561,9 +561,10 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     }
 
     private static double toolBreakTimeBonus0(
-            int toolType, int toolTier, boolean isWoolBlock, boolean isCobweb) {
+            int toolType, int toolTier, boolean isWoolBlock, boolean isCobweb, boolean isLeaves) {
         if (toolType == ItemTool.TYPE_SWORD) return isCobweb ? 15.0 : 1.0;
         if (toolType == ItemTool.TYPE_SHEARS) return isWoolBlock ? 5.0 : 15.0;
+        if (toolType == ItemTool.TYPE_HOE) return isLeaves ? 15.0 : 5.0;
         if (toolType == ItemTool.TYPE_NONE) return 1.0;
         switch (toolTier) {
             case ItemTool.TIER_WOODEN:
@@ -574,6 +575,8 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                 return 6.0;
             case ItemTool.TIER_DIAMOND:
                 return 8.0;
+            case ItemTool.TIER_NETHERITE:
+                return 9;
             case ItemTool.TIER_GOLD:
                 return 12.0;
             default:
@@ -596,6 +599,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         if (item.isPickaxe()) return ItemTool.TYPE_PICKAXE;
         if (item.isAxe()) return ItemTool.TYPE_AXE;
         if (item.isShears()) return ItemTool.TYPE_SHEARS;
+        if (item.isHoe()) return ItemTool.TYPE_HOE;
         return ItemTool.TYPE_NONE;
     }
 
@@ -605,6 +609,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                 (blockToolType == ItemTool.TYPE_PICKAXE && item.isPickaxe()) ||
                 (blockToolType == ItemTool.TYPE_AXE && item.isAxe()) ||
                 (blockToolType == ItemTool.TYPE_SHEARS && item.isShears()) ||
+                (blockToolType == ItemTool.TYPE_HOE && item.isHoe()) ||
                 blockToolType == ItemTool.TYPE_NONE;
     }
 
@@ -615,7 +620,11 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         double baseTime = ((correctTool || canHarvestWithHand) ? 1.5 : 5.0) * blockHardness;
         double speed = 1.0 / baseTime;
         boolean isWoolBlock = blockId == Block.WOOL, isCobweb = blockId == Block.COBWEB;
-        if (correctTool) speed *= toolBreakTimeBonus0(toolType, toolTier, isWoolBlock, isCobweb);
+        boolean isLeaves = false;
+        if(blockId == Block.LEAVES || blockId == Block.LEAVES2){
+            isLeaves = true;
+        }
+        if (correctTool) speed *= toolBreakTimeBonus0(toolType, toolTier, isWoolBlock, isCobweb, isLeaves);
         speed += speedBonusByEfficiencyLore0(efficiencyLoreLevel);
         speed *= speedRateByHasteLore0(hasteEffectLevel);
         if (insideOfWaterWithoutAquaAffinity) speed *= 0.2;
@@ -633,6 +642,13 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         }
 
         boolean correctTool = correctTool0(getToolType(), item);
+        if(!correctTool){
+            if(this.getId() == Block.LEAVES || this.getId() == Block.LEAVES2){
+                if(item.isHoe()){
+                    correctTool = true;
+                }
+            }
+        }
         boolean canHarvestWithHand = canHarvestWithHand();
         int blockId = getId();
         int itemToolType = toolType0(item);
@@ -678,6 +694,9 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                         break;
                     case ItemTool.TIER_DIAMOND:
                         base /= 8;
+                        break;
+                    case ItemTool.TIER_NETHERITE:
+                        base /= 9;
                         break;
                     case ItemTool.TIER_GOLD:
                         base /= 12;

@@ -18,6 +18,7 @@ public abstract class ItemTool extends Item implements ItemDurable {
     public static final int TIER_STONE = 3;
     public static final int TIER_IRON = 4;
     public static final int TIER_DIAMOND = 5;
+    public static final int TIER_NETHERITE = 6;
 
     public static final int TYPE_NONE = 0;
     public static final int TYPE_SWORD = 1;
@@ -25,12 +26,14 @@ public abstract class ItemTool extends Item implements ItemDurable {
     public static final int TYPE_PICKAXE = 3;
     public static final int TYPE_AXE = 4;
     public static final int TYPE_SHEARS = 5;
+    public static final int TYPE_HOE = 6;
 
     public static final int DURABILITY_WOODEN = 60;
     public static final int DURABILITY_GOLD = 33;
     public static final int DURABILITY_STONE = 132;
     public static final int DURABILITY_IRON = 251;
     public static final int DURABILITY_DIAMOND = 1562;
+    public static final int DURABILITY_NETHERITE = 2031;
     public static final int DURABILITY_FLINT_STEEL = 65;
     public static final int DURABILITY_SHEARS = 239;
     public static final int DURABILITY_BOW = 385;
@@ -68,7 +71,8 @@ public abstract class ItemTool extends Item implements ItemDurable {
                 block.getToolType() == ItemTool.TYPE_SHOVEL && this.isShovel() ||
                 block.getToolType() == ItemTool.TYPE_AXE && this.isAxe() ||
                 block.getToolType() == ItemTool.TYPE_SWORD && this.isSword() ||
-                block.getToolType() == ItemTool.SHEARS && this.isShears()
+                block.getToolType() == ItemTool.SHEARS && this.isShears() ||
+                block.getToolType() == ItemTool.TYPE_HOE && this.isHoe()
                 ) {
             this.meta++;
         } else if (!this.isShears() && block.getBreakTime(this) > 0) {
@@ -161,6 +165,8 @@ public abstract class ItemTool extends Item implements ItemDurable {
                 return 22;
             case TIER_IRON:
                 return 14;
+            case TIER_NETHERITE:
+                return 10; //?
         }
 
         return 0;
