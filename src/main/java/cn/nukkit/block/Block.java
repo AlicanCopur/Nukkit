@@ -561,9 +561,10 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     }
 
     private static double toolBreakTimeBonus0(
-            int toolType, int toolTier, boolean isWoolBlock, boolean isCobweb) {
+            int toolType, int toolTier, boolean isWoolBlock, boolean isCobweb, boolean isLeaves) {
         if (toolType == ItemTool.TYPE_SWORD) return isCobweb ? 15.0 : 1.0;
         if (toolType == ItemTool.TYPE_SHEARS) return isWoolBlock ? 5.0 : 15.0;
+        if (toolType == ItemTool.TYPE_HOE) return isLeaves ? 15.0 : 5.0;
         if (toolType == ItemTool.TYPE_NONE) return 1.0;
         switch (toolTier) {
             case ItemTool.TIER_WOODEN:
@@ -617,7 +618,11 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         double baseTime = ((correctTool || canHarvestWithHand) ? 1.5 : 5.0) * blockHardness;
         double speed = 1.0 / baseTime;
         boolean isWoolBlock = blockId == Block.WOOL, isCobweb = blockId == Block.COBWEB;
-        if (correctTool) speed *= toolBreakTimeBonus0(toolType, toolTier, isWoolBlock, isCobweb);
+        boolean isLeaves = false;
+        if(blockId == Block.LEAVES || blockId == Block.LEAVES2){
+            isLeaves = true;
+        }
+        if (correctTool) speed *= toolBreakTimeBonus0(toolType, toolTier, isWoolBlock, isCobweb, isLeaves);
         speed += speedBonusByEfficiencyLore0(efficiencyLoreLevel);
         speed *= speedRateByHasteLore0(hasteEffectLevel);
         if (insideOfWaterWithoutAquaAffinity) speed *= 0.2;
