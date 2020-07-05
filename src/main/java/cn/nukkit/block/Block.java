@@ -599,6 +599,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         if (item.isPickaxe()) return ItemTool.TYPE_PICKAXE;
         if (item.isAxe()) return ItemTool.TYPE_AXE;
         if (item.isShears()) return ItemTool.TYPE_SHEARS;
+        if (item.isHoe()) return ItemTool.TYPE_HOE;
         return ItemTool.TYPE_NONE;
     }
 
@@ -608,6 +609,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                 (blockToolType == ItemTool.TYPE_PICKAXE && item.isPickaxe()) ||
                 (blockToolType == ItemTool.TYPE_AXE && item.isAxe()) ||
                 (blockToolType == ItemTool.TYPE_SHEARS && item.isShears()) ||
+                (blockToolType == ItemTool.TYPE_HOE && item.isHoe()) ||
                 blockToolType == ItemTool.TYPE_NONE;
     }
 
