@@ -322,6 +322,17 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[HONEYCOMB] = ItemHoneycomb.class; //736
             list[HONEY_BOTTLE] = ItemHoneyBottle.class; //737
 
+            list[NETHERITE_INGOT] = ItemIngotNetherite.class;
+            list[NETHERITE_SWORD] = ItemSwordNetherite.class;
+            list[NETHERITE_SHOVEL] = ItemShovelNetherite.class;
+            list[NETHERITE_PICKAXE] = ItemPickaxeNetherite.class;
+            list[NETHERITE_AXE] = ItemAxeNetherite.class;
+            list[NETHERITE_HOE] = ItemHoeNetherite.class;
+            list[NETHERITE_HELMET] = ItemHelmetNetherite.class;
+            list[NETHERITE_CHESTPLATE] = ItemChestplateNetherite.class;
+            list[NETHERITE_LEGGINGS] = ItemLeggingsNetherite.class;
+            list[NETHERITE_BOOTS] = ItemBootsNetherite.class;
+
             for (int i = 0; i < 256; ++i) {
                 if (Block.list[i] != null) {
                     list[i] = Block.list[i];

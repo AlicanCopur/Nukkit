@@ -77,6 +77,11 @@ public class BlockPistonHead extends BlockTransparentMeta implements Faceable {
     }
 
     @Override
+    public boolean canPassThrough() {
+        return true;
+    }
+
+    @Override
     public Item toItem() {
         return new ItemBlock(Block.get(BlockID.AIR));
     }

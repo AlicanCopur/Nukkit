@@ -228,11 +228,6 @@ public class BlockCocoa extends BlockTransparentMeta implements Faceable {
     }
 
     @Override
-    public boolean canBeFlowedInto() {
-        return false;
-    }
-
-    @Override
     public Item toItem() {
         return new ItemDye(DyeColor.BROWN.getDyeData());
     }
@@ -263,5 +258,10 @@ public class BlockCocoa extends BlockTransparentMeta implements Faceable {
     @Override
     public boolean sticksToPiston() {
         return false;
+    }
+
+    @Override
+    public boolean canBeFlowedInto() {
+        return true;
     }
 }

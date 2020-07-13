@@ -2,6 +2,7 @@ package cn.nukkit.entity.item;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.block.BlockID;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -56,7 +57,12 @@ public class EntityItem extends Entity {
 
     @Override
     public float getGravity() {
-        return 0.04f;
+        if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) {
+            if(this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == BlockID.ICE || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY() - 1, (int) this.z) == BlockID.PACKED_ICE){
+                return 0.03f;
+            }
+        }
+        return 0.1f;
     }
 
     @Override
@@ -187,8 +193,8 @@ public class EntityItem extends Entity {
                 }
             }
 
-            if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) { //item is fully in water or in still water
-                this.motionY -= this.getGravity() * -0.015;
+            if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 8 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == 9) {
+                this.motionY -= this.getGravity() * -0.015; //item is fully in water or in still water
             } else if (this.isInsideOfWater()) {
                 this.motionY = this.getGravity() - 0.06; //item is going up in water, don't let it go back down too fast
             } else {

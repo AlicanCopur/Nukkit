@@ -94,6 +94,7 @@ public class BlockEntityChest extends BlockEntitySpawnableContainer implements B
                 this.namedTag.remove("pairz");
             }
         }
+        this.spawnToAll();
     }
 
     public boolean isPaired() {

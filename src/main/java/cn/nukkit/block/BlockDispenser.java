@@ -50,7 +50,7 @@ public class BlockDispenser extends BlockSolidMeta implements Faceable {
 
     @Override
     public Item toItem() {
-        return new ItemBlock(this, 0);
+        return new ItemBlock(this, 3);
     }
 
     @Override

@@ -225,6 +225,7 @@ public class BlockRedstoneWire extends BlockFlowable {
 
         if (type == Level.BLOCK_UPDATE_NORMAL && !this.canBePlacedOn(this.down())) {
             this.getLevel().useBreakOn(this);
+            this.getLevel().setBlock(this, Block.get(Block.AIR));
             return Level.BLOCK_UPDATE_NORMAL;
         }
 

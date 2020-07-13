@@ -3,6 +3,7 @@ package cn.nukkit.block;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.item.EntityItem;
 import cn.nukkit.entity.item.EntityPrimedTNT;
 import cn.nukkit.event.block.BlockIgniteEvent;
 import cn.nukkit.event.entity.EntityCombustByBlockEvent;
@@ -16,6 +17,7 @@ import cn.nukkit.math.Vector3;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.utils.BlockColor;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -52,17 +54,27 @@ public class BlockLava extends BlockLiquid {
     public void onEntityCollide(Entity entity) {
         entity.highestPosition -= (entity.highestPosition - entity.y) * 0.5;
 
+        boolean burn = true;
+
+        if(entity instanceof EntityItem){
+            EntityItem ei = (EntityItem) entity;
+            Item i = ei.getItem();
+            if(Arrays.asList(Item.NETHERITE_AXE, Item.NETHERITE_SHOVEL, Item.NETHERITE_SWORD, Item.NETHERITE_PICKAXE, Item.NETHERITE_HOE, Item.NETHERITE_HELMET, Item.NETHERITE_CHESTPLATE, Item.NETHERITE_LEGGINGS, Item.NETHERITE_BOOTS).contains(i.getId())){
+                burn = false;
+            }
+        }
+
         // Always setting the duration to 15 seconds? TODO
         EntityCombustByBlockEvent ev = new EntityCombustByBlockEvent(this, entity, 15);
         Server.getInstance().getPluginManager().callEvent(ev);
-        if (!ev.isCancelled()
+        if (!ev.isCancelled() && burn
                 // Making sure the entity is actually alive and not invulnerable.
                 && entity.isAlive()
                 && entity.noDamageTicks == 0) {
             entity.setOnFire(ev.getDuration());
         }
 
-        if (!entity.hasEffect(Effect.FIRE_RESISTANCE)) {
+        if (!entity.hasEffect(Effect.FIRE_RESISTANCE) && burn) {
             entity.attack(new EntityDamageByBlockEvent(this, entity, DamageCause.LAVA, 4));
         }
 

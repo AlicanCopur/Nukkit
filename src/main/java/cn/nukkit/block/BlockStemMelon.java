@@ -5,6 +5,7 @@ import cn.nukkit.api.PowerNukkitDifference;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.event.block.BlockGrowEvent;
+import cn.nukkit.event.block.BlockChangeEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemSeedsMelon;
 import cn.nukkit.level.Level;
@@ -70,6 +71,8 @@ public class BlockStemMelon extends BlockCrops implements Faceable {
                     Server.getInstance().getPluginManager().callEvent(ev);
                     if (!ev.isCancelled()) {
                         this.getLevel().setBlock(this, ev.getNewState(), true);
+                        BlockChangeEvent ev2 = new BlockChangeEvent(this, Block.get(BlockID.MELON_BLOCK));
+                        Server.getInstance().getPluginManager().callEvent(ev2);
                     }
                     return Level.BLOCK_UPDATE_RANDOM;
                 } else {
@@ -89,6 +92,8 @@ public class BlockStemMelon extends BlockCrops implements Faceable {
                             this.getLevel().setBlock(side, ev.getNewState(), true);
                             setBlockFace(sideFace);
                             this.getLevel().setBlock(this, this, true);
+                            BlockChangeEvent ev2 = new BlockChangeEvent(this, Block.get(BlockID.MELON_BLOCK));
+                            Server.getInstance().getPluginManager().callEvent(ev2);
                         }
                     }
                 }
@@ -105,6 +110,11 @@ public class BlockStemMelon extends BlockCrops implements Faceable {
 
     @Override
     public Item[] getDrops(Item item) {
+        if (this.getDamage() < 0x07) {
+            return new Item[]{
+                    new ItemSeedsMelon(0, 1)
+            };
+        }
         NukkitRandom random = new NukkitRandom();
         return new Item[]{
                 new ItemSeedsMelon(0, random.nextRange(0, 3))
