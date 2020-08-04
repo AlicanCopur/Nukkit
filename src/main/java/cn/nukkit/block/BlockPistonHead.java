@@ -83,10 +83,6 @@ public class BlockPistonHead extends BlockTransparentMeta implements Faceable {
         return true;
     }
 
-    public BlockFace getFacing() {
-        return BlockFace.fromIndex(this.getDamage()).getOpposite();
-    }
-
     /*@Override
     public void onEntityCollide(Entity entity) {
         if(entity instanceof Player){
