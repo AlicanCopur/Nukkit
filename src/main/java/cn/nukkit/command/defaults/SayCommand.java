@@ -42,18 +42,18 @@ public class SayCommand extends VanillaCommand {
             senderString = sender.getName();
         }
 
-        StringBuilder msg = new StringBuilder();
+        String msg = "";
         for (String arg : args) {
-            msg.append(arg).append(" ");
+            msg += arg + " ";
         }
         if (msg.length() > 0) {
-            msg = new StringBuilder(msg.substring(0, msg.length() - 1));
+            msg = msg.substring(0, msg.length() - 1);
         }
 
 
         sender.getServer().broadcastMessage(new TranslationContainer(
                 TextFormat.LIGHT_PURPLE + "%chat.type.announcement",
-                senderString, TextFormat.LIGHT_PURPLE + msg.toString()));
+                senderString, TextFormat.LIGHT_PURPLE + msg));
         return true;
     }
 }

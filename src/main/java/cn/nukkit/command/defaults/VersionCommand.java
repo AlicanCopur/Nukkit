@@ -38,15 +38,15 @@ public class VersionCommand extends VanillaCommand {
                     sender.getServer().getVersion(),
                     String.valueOf(ProtocolInfo.CURRENT_PROTOCOL)));
         } else {
-            StringBuilder pluginName = new StringBuilder();
-            for (String arg : args) pluginName.append(arg).append(" ");
-            pluginName = new StringBuilder(pluginName.toString().trim());
+            String pluginName = "";
+            for (String arg : args) pluginName += arg + " ";
+            pluginName = pluginName.trim();
             final boolean[] found = {false};
-            final Plugin[] exactPlugin = {sender.getServer().getPluginManager().getPlugin(pluginName.toString())};
+            final Plugin[] exactPlugin = {sender.getServer().getPluginManager().getPlugin(pluginName)};
 
             if (exactPlugin[0] == null) {
-                pluginName = new StringBuilder(pluginName.toString().toLowerCase());
-                final String finalPluginName = pluginName.toString();
+                pluginName = pluginName.toLowerCase();
+                final String finalPluginName = pluginName;
                 sender.getServer().getPluginManager().getPlugins().forEach((s, p) -> {
                     if (s.toLowerCase().contains(finalPluginName)) {
                         exactPlugin[0] = p;

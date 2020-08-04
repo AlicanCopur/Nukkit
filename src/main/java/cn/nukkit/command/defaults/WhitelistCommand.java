@@ -66,10 +66,10 @@ public class WhitelistCommand extends VanillaCommand {
 
                     return true;
                 case "list":
-                    StringBuilder result = new StringBuilder();
+                    String result = "";
                     int count = 0;
                     for (String player : sender.getServer().getWhitelist().getAll().keySet()) {
-                        result.append(player).append(", ");
+                        result += player + ", ";
                         ++count;
                     }
                     sender.sendMessage(new TranslationContainer("commands.whitelist.list", String.valueOf(count), String.valueOf(count)));

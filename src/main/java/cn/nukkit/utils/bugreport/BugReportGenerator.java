@@ -49,7 +49,7 @@ public class BugReportGenerator extends Thread {
             reports.mkdirs();
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmSS");
         String date = simpleDateFormat.format(new Date());
 
         StringBuilder model = new StringBuilder();

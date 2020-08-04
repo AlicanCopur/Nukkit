@@ -124,6 +124,7 @@ public class Config {
         return this.load(file, type, new ConfigSection());
     }
 
+    @SuppressWarnings("unchecked")
     public boolean load(String file, int type, ConfigSection defaultMap) {
         this.correct = true;
         this.type = type;
@@ -215,33 +216,33 @@ public class Config {
     public boolean save(Boolean async) {
         if (this.file == null) throw new IllegalStateException("Failed to save Config. File object is undefined.");
         if (this.correct) {
-            StringBuilder content = new StringBuilder();
+            String content = "";
             switch (this.type) {
                 case Config.PROPERTIES:
-                    content = new StringBuilder(this.writeProperties());
+                    content = this.writeProperties();
                     break;
                 case Config.JSON:
-                    content = new StringBuilder(new GsonBuilder().setPrettyPrinting().create().toJson(this.config));
+                    content = new GsonBuilder().setPrettyPrinting().create().toJson(this.config);
                     break;
                 case Config.YAML:
                     DumperOptions dumperOptions = new DumperOptions();
                     dumperOptions.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
                     Yaml yaml = new Yaml(dumperOptions);
-                    content = new StringBuilder(yaml.dump(this.config));
+                    content = yaml.dump(this.config);
                     break;
                 case Config.ENUM:
                     for (Object o : this.config.entrySet()) {
                         Map.Entry entry = (Map.Entry) o;
-                        content.append(entry.getKey()).append("\r\n");
+                        content += entry.getKey() + "\r\n";
                     }
                     break;
             }
             if (async) {
-                Server.getInstance().getScheduler().scheduleAsyncTask(new FileWriteTask(this.file, content.toString()));
+                Server.getInstance().getScheduler().scheduleAsyncTask(new FileWriteTask(this.file, content));
 
             } else {
                 try {
-                    Utils.writeFile(this.file, content.toString());
+                    Utils.writeFile(this.file, content);
                 } catch (IOException e) {
                     Server.getInstance().getLogger().logException(e);
                 }
@@ -260,6 +261,7 @@ public class Config {
         return this.get(key, null);
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T get(String key, T defaultValue) {
         return this.correct ? this.config.get(key, defaultValue) : defaultValue;
     }
@@ -456,7 +458,7 @@ public class Config {
     }
 
     private String writeProperties() {
-        StringBuilder content = new StringBuilder("#Properties Config file\r\n#" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) + "\r\n");
+        String content = "#Properties Config file\r\n#" + new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) + "\r\n";
         for (Object o : this.config.entrySet()) {
             Map.Entry entry = (Map.Entry) o;
             Object v = entry.getValue();
@@ -464,9 +466,9 @@ public class Config {
             if (v instanceof Boolean) {
                 v = (Boolean) v ? "on" : "off";
             }
-            content.append(k).append("=").append(v).append("\r\n");
+            content += k + "=" + v + "\r\n";
         }
-        return content.toString();
+        return content;
     }
 
     private void parseProperties(String content) {

@@ -166,7 +166,7 @@ public class BlockRedstoneWire extends BlockFlowable {
             return maxStrength;
         } else {
             int strength = this.level.getBlockDataAt(pos.getFloorX(), pos.getFloorY(), pos.getFloorZ());
-            return Math.max(strength, maxStrength);
+            return strength > maxStrength ? strength : maxStrength;
         }
     }
 

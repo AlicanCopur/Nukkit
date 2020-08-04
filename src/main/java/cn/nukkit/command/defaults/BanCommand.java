@@ -38,20 +38,20 @@ public class BanCommand extends VanillaCommand {
         }
 
         String name = args[0];
-        StringBuilder reason = new StringBuilder();
+        String reason = "";
         for (int i = 1; i < args.length; i++) {
-            reason.append(args[i]).append(" ");
+            reason += args[i] + " ";
         }
 
         if (reason.length() > 0) {
-            reason = new StringBuilder(reason.substring(0, reason.length() - 1));
+            reason = reason.substring(0, reason.length() - 1);
         }
 
-        sender.getServer().getNameBans().addBan(name, reason.toString(), null, sender.getName());
+        sender.getServer().getNameBans().addBan(name, reason, null, sender.getName());
 
         Player player = sender.getServer().getPlayerExact(name);
         if (player != null) {
-            player.kick(PlayerKickEvent.Reason.NAME_BANNED, (reason.length() > 0) ? "Banned by admin. Reason: " + reason : "Banned by admin");
+            player.kick(PlayerKickEvent.Reason.NAME_BANNED, !reason.isEmpty() ? "Banned by admin. Reason: " + reason : "Banned by admin");
         }
 
         Command.broadcastCommandMessage(sender, new TranslationContainer("%commands.ban.success", player != null ? player.getName() : name));

@@ -51,7 +51,7 @@ Docker
 
 Running Nukkit in [Docker](https://www.docker.com/) (17.05+ or higher).
 
-Build image from the source,
+Build image from source,
 
 ```
 docker build -t nukkit .

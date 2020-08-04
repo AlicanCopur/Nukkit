@@ -31,12 +31,12 @@ public class HelpCommand extends VanillaCommand {
         if (!this.testPermission(sender)) {
             return true;
         }
-        StringBuilder command = new StringBuilder();
+        String command = "";
         int pageNumber = 1;
         int pageHeight = 5;
         if (args.length != 0) {
             try {
-                pageNumber = Integer.parseInt(args[args.length - 1]);
+                pageNumber = Integer.valueOf(args[args.length - 1]);
                 if (pageNumber <= 0) {
                     pageNumber = 1;
                 }
@@ -50,18 +50,18 @@ public class HelpCommand extends VanillaCommand {
                     args = new String[0];
                 }*/
                 for (String arg : args) {
-                    if (!command.toString().equals("")) {
-                        command.append(" ");
+                    if (!command.equals("")) {
+                        command += " ";
                     }
-                    command.append(arg);
+                    command += arg;
                 }
             } catch (NumberFormatException e) {
                 pageNumber = 1;
                 for (String arg : args) {
-                    if (!command.toString().equals("")) {
-                        command.append(" ");
+                    if (!command.equals("")) {
+                        command += " ";
                     }
-                    command.append(arg);
+                    command += arg;
                 }
             }
         }
@@ -70,7 +70,7 @@ public class HelpCommand extends VanillaCommand {
             pageHeight = Integer.MAX_VALUE;
         }
 
-        if (command.toString().equals("")) {
+        if (command.equals("")) {
             Map<String, Command> commands = new TreeMap<>();
             for (Command cmd : sender.getServer().getCommandMap().getCommands().values()) {
                 if (cmd.testPermissionSilent(sender)) {
@@ -94,18 +94,18 @@ public class HelpCommand extends VanillaCommand {
 
             return true;
         } else {
-            Command cmd = sender.getServer().getCommandMap().getCommand(command.toString().toLowerCase());
+            Command cmd = sender.getServer().getCommandMap().getCommand(command.toLowerCase());
             if (cmd != null) {
                 if (cmd.testPermissionSilent(sender)) {
                     String message = TextFormat.YELLOW + "--------- " + TextFormat.WHITE + " Help: /" + cmd.getName() + TextFormat.YELLOW + " ---------\n";
                     message += TextFormat.GOLD + "Description: " + TextFormat.WHITE + cmd.getDescription() + "\n";
-                    StringBuilder usage = new StringBuilder();
+                    String usage = "";
                     String[] usages = cmd.getUsage().split("\n");
                     for (String u : usages) {
-                        if (!usage.toString().equals("")) {
-                            usage.append("\n" + TextFormat.WHITE);
+                        if (!usage.equals("")) {
+                            usage += "\n" + TextFormat.WHITE;
                         }
-                        usage.append(u);
+                        usage += u;
                     }
                     message += TextFormat.GOLD + "Usage: " + TextFormat.WHITE + usage + "\n";
                     sender.sendMessage(message);
@@ -113,7 +113,7 @@ public class HelpCommand extends VanillaCommand {
                 }
             }
 
-            sender.sendMessage(TextFormat.RED + "No help for " + command.toString().toLowerCase());
+            sender.sendMessage(TextFormat.RED + "No help for " + command.toLowerCase());
             return true;
         }
     }

@@ -21,22 +21,22 @@ public class ListCommand extends VanillaCommand {
         if (!this.testPermission(sender)) {
             return true;
         }
-        StringBuilder online = new StringBuilder();
+        String online = "";
         int onlineCount = 0;
         for (Player player : sender.getServer().getOnlinePlayers().values()) {
             if (player.isOnline() && (!(sender instanceof Player) || ((Player) sender).canSee(player))) {
-                online.append(player.getDisplayName()).append(", ");
+                online += player.getDisplayName() + ", ";
                 ++onlineCount;
             }
         }
 
         if (online.length() > 0) {
-            online = new StringBuilder(online.substring(0, online.length() - 2));
+            online = online.substring(0, online.length() - 2);
         }
 
         sender.sendMessage(new TranslationContainer("commands.players.list",
                 String.valueOf(onlineCount), String.valueOf(sender.getServer().getMaxPlayers())));
-        sender.sendMessage(online.toString());
+        sender.sendMessage(online);
         return true;
     }
 }

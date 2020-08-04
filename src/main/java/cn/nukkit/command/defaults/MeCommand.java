@@ -41,16 +41,16 @@ public class MeCommand extends VanillaCommand {
             name = sender.getName();
         }
 
-        StringBuilder msg = new StringBuilder();
+        String msg = "";
         for (String arg : args) {
-            msg.append(arg).append(" ");
+            msg += arg + " ";
         }
 
         if (msg.length() > 0) {
-            msg = new StringBuilder(msg.substring(0, msg.length() - 1));
+            msg = msg.substring(0, msg.length() - 1);
         }
 
-        sender.getServer().broadcastMessage(new TranslationContainer("chat.type.emote", name, TextFormat.WHITE + msg.toString()));
+        sender.getServer().broadcastMessage(new TranslationContainer("chat.type.emote", name, TextFormat.WHITE + msg));
 
         return true;
     }
