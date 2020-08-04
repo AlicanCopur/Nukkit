@@ -59,7 +59,7 @@ public class BlockLava extends BlockLiquid {
         if(entity instanceof EntityItem){
             EntityItem ei = (EntityItem) entity;
             Item i = ei.getItem();
-            if(Arrays.asList(Item.NETHERITE_AXE, Item.NETHERITE_SHOVEL, Item.NETHERITE_SWORD, Item.NETHERITE_PICKAXE, Item.NETHERITE_HOE, Item.NETHERITE_HELMET, Item.NETHERITE_CHESTPLATE, Item.NETHERITE_LEGGINGS, Item.NETHERITE_BOOTS, Item.NETHERITE_INGOT).contains(i.getId())){
+            if(Arrays.asList(Item.NETHERITE_AXE, Item.NETHERITE_SHOVEL, Item.NETHERITE_SWORD, Item.NETHERITE_PICKAXE, Item.NETHERITE_HOE, Item.NETHERITE_HELMET, Item.NETHERITE_CHESTPLATE, Item.NETHERITE_LEGGINGS, Item.NETHERITE_BOOTS).contains(i.getId())){
                 burn = false;
             }
         }
