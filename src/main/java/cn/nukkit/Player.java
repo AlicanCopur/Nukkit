@@ -1839,7 +1839,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
         if (!this.batchedPackets.isEmpty()) {
             Player[] pArr = new Player[]{this};
-            for (Entry<Integer, List<DataPacket>> entry : this.batchedPackets.entrySet()) {
+            Iterator<Entry<Integer, List<DataPacket>>> iter = this.batchedPackets.entrySet().iterator();
+            while (iter.hasNext()) {
+                Entry<Integer, List<DataPacket>> entry = iter.next();
                 List<DataPacket> packets = entry.getValue();
                 DataPacket[] arr = packets.toArray(new DataPacket[0]);
                 packets.clear();
@@ -2494,7 +2496,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             this.breakingBlock = null;
                             break;
                         case PlayerActionPacket.ACTION_GET_UPDATED_BLOCK:
-                            //TODO
+                            break; //TODO
                         case PlayerActionPacket.ACTION_DROP_ITEM:
                             break; //TODO
                         case PlayerActionPacket.ACTION_STOP_SLEEPING:
@@ -2788,16 +2790,18 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     //this.resetCraftingGridType();
 
 
-                    if (entityEventPacket.event == EntityEventPacket.EATING_ITEM) {
-                        if (entityEventPacket.data == 0 || entityEventPacket.eid != this.id) {
+                    switch (entityEventPacket.event) {
+                        case EntityEventPacket.EATING_ITEM:
+                            if (entityEventPacket.data == 0 || entityEventPacket.eid != this.id) {
+                                break;
+                            }
+
+                            entityEventPacket.eid = this.id;
+                            entityEventPacket.isEncoded = false;
+
+                            this.dataPacket(entityEventPacket);
+                            Server.broadcastPacket(this.getViewers().values(), entityEventPacket);
                             break;
-                        }
-
-                        entityEventPacket.eid = this.id;
-                        entityEventPacket.isEncoded = false;
-
-                        this.dataPacket(entityEventPacket);
-                        Server.broadcastPacket(this.getViewers().values(), entityEventPacket);
                     }
                     break;
                 case ProtocolInfo.COMMAND_REQUEST_PACKET:

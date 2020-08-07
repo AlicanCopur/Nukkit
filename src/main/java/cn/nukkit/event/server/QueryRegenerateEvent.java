@@ -142,14 +142,14 @@ public class QueryRegenerateEvent extends ServerEvent {
         if (buffer == null) buffer = new byte[Character.MAX_VALUE];
         FastByteArrayOutputStream query = new FastByteArrayOutputStream(buffer);
         try {
-            StringBuilder plist = new StringBuilder(this.server_engine);
+            String plist = this.server_engine;
             if (this.plugins.length > 0 && this.listPlugins) {
-                plist.append(":");
+                plist += ":";
                 for (Plugin p : this.plugins) {
                     PluginDescription d = p.getDescription();
-                    plist.append(" ").append(d.getName().replace(";", "").replace(":", "").replace(" ", "_")).append(" ").append(d.getVersion().replace(";", "").replace(":", "").replace(" ", "_")).append(";");
+                    plist += " " + d.getName().replace(";", "").replace(":", "").replace(" ", "_") + " " + d.getVersion().replace(";", "").replace(":", "").replace(" ", "_") + ";";
                 }
-                plist = new StringBuilder(plist.substring(0, plist.length() - 2));
+                plist = plist.substring(0, plist.length() - 2);
             }
 
             query.write("splitnum".getBytes());
@@ -163,7 +163,7 @@ public class QueryRegenerateEvent extends ServerEvent {
             KVdata.put("game_id", GAME_ID);
             KVdata.put("version", this.version);
             KVdata.put("server_engine", this.server_engine);
-            KVdata.put("plugins", plist.toString());
+            KVdata.put("plugins", plist);
             KVdata.put("map", this.map);
             KVdata.put("numplayers", String.valueOf(this.numPlayers));
             KVdata.put("maxplayers", String.valueOf(this.maxPlayers));

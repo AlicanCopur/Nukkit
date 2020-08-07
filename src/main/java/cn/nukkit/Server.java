@@ -523,13 +523,13 @@ public class Server {
                 String[] opts = (this.getConfig("worlds." + name + ".generator", Generator.getGenerator("default").getSimpleName())).split(":");
                 Class<? extends Generator> generator = Generator.getGenerator(opts[0]);
                 if (opts.length > 1) {
-                    StringBuilder preset = new StringBuilder();
+                    String preset = "";
                     for (int i = 1; i < opts.length; i++) {
-                        preset.append(opts[i]).append(":");
+                        preset += opts[i] + ":";
                     }
-                    preset = new StringBuilder(preset.substring(0, preset.length() - 1));
+                    preset = preset.substring(0, preset.length() - 1);
 
-                    options.put("preset", preset.toString());
+                    options.put("preset", preset);
                 }
 
                 this.generateLevel(name, seed, generator, options);
@@ -548,7 +548,7 @@ public class Server {
                 long seed;
                 String seedString = String.valueOf(this.getProperty("level-seed", System.currentTimeMillis()));
                 try {
-                    seed = Long.parseLong(seedString);
+                    seed = Long.valueOf(seedString);
                 } catch (NumberFormatException e) {
                     seed = seedString.hashCode();
                 }
@@ -1585,6 +1585,7 @@ public class Server {
     public IPlayer getOfflinePlayer(UUID uuid) {
         Preconditions.checkNotNull(uuid, "uuid");
         Optional<Player> onlinePlayer = getPlayer(uuid);
+        //noinspection OptionalIsPresent
         if (onlinePlayer.isPresent()) {
             return onlinePlayer.get();
         }

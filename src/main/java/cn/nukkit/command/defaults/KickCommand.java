@@ -37,20 +37,20 @@ public class KickCommand extends VanillaCommand {
 
         String name = args[0];
 
-        StringBuilder reason = new StringBuilder();
+        String reason = "";
         for (int i = 1; i < args.length; i++) {
-            reason.append(args[i]).append(" ");
+            reason += args[i] + " ";
         }
 
         if (reason.length() > 0) {
-            reason = new StringBuilder(reason.substring(0, reason.length() - 1));
+            reason = reason.substring(0, reason.length() - 1);
         }
 
         Player player = sender.getServer().getPlayer(name);
         if (player != null) {
-            player.kick(PlayerKickEvent.Reason.KICKED_BY_ADMIN, reason.toString());
+            player.kick(PlayerKickEvent.Reason.KICKED_BY_ADMIN, reason);
             if (reason.length() >= 1) {
-                Command.broadcastCommandMessage(sender, new TranslationContainer("commands.kick.success.reason", player.getName(), reason.toString())
+                Command.broadcastCommandMessage(sender, new TranslationContainer("commands.kick.success.reason", player.getName(), reason)
                 );
             } else {
                 Command.broadcastCommandMessage(sender, new TranslationContainer("commands.kick.success", player.getName()));

@@ -296,7 +296,7 @@ public class SimpleCommandMap implements CommandMap {
             }
             List<String> targets = new ArrayList<>();
 
-            StringBuilder bad = new StringBuilder();
+            String bad = "";
 
             for (String commandString : commandStrings) {
                 String[] args = commandString.split(" ");
@@ -304,16 +304,16 @@ public class SimpleCommandMap implements CommandMap {
 
                 if (command == null) {
                     if (bad.length() > 0) {
-                        bad.append(", ");
+                        bad += ", ";
                     }
-                    bad.append(commandString);
+                    bad += commandString;
                 } else {
                     targets.add(commandString);
                 }
             }
 
             if (bad.length() > 0) {
-                this.server.getLogger().warning(this.server.getLanguage().translateString("nukkit.command.alias.notFound", new String[]{alias, bad.toString()}));
+                this.server.getLogger().warning(this.server.getLanguage().translateString("nukkit.command.alias.notFound", new String[]{alias, bad}));
                 continue;
             }
 

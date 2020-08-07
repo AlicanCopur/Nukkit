@@ -98,7 +98,7 @@ public class BlockTrappedChest extends BlockChest {
             playerCount = ((BlockEntityChest) blockEntity).getInventory().getViewers().size();
         }
 
-        return Math.min(playerCount, 15);
+        return playerCount < 0 ? 0 : playerCount > 15 ? 15 : playerCount;
     }
 
     @Override

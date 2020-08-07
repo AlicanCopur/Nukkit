@@ -369,10 +369,10 @@ public class SessionManager {
                             this.name = value;
                             break;
                         case "portChecking":
-                            this.portChecking = Boolean.parseBoolean(value);
+                            this.portChecking = Boolean.valueOf(value);
                             break;
                         case "packetLimit":
-                            this.packetLimit = Integer.parseInt(value);
+                            this.packetLimit = Integer.valueOf(value);
                             break;
                     }
                     break;

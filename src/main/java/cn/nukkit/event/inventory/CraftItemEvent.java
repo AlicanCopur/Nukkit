@@ -8,6 +8,10 @@ import cn.nukkit.inventory.Recipe;
 import cn.nukkit.inventory.transaction.CraftingTransaction;
 import cn.nukkit.item.Item;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * author: MagicDroidX
  * Nukkit Project
