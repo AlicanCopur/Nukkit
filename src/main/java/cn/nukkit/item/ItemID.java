@@ -247,6 +247,9 @@ public interface ItemID {
 
     int SHIELD = 513;
 
+    int HONEYCOMB = 736;
+    int HONEY_BOTTLE = 737;
+
     int NETHERITE_INGOT = 742;
     int NETHERITE_SWORD = 743;
     int NETHERITE_SHOVEL = 744;
