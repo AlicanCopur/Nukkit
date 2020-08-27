@@ -319,6 +319,8 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[NETHERITE_LEGGINGS] = ItemLeggingsNetherite.class;
             list[NETHERITE_BOOTS] = ItemBootsNetherite.class;
 
+            list[RECORD_PIGSTEP] = ItemRecordPigstep.class; //759
+
             for (int i = 0; i < 256; ++i) {
                 if (Block.list[i] != null) {
                     list[i] = Block.list[i];

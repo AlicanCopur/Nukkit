@@ -250,6 +250,7 @@ public interface ItemID {
     int HONEYCOMB = 736;
     int HONEY_BOTTLE = 737;
 
+    int LODESTONECOMPASS = 741;
     int NETHERITE_INGOT = 742;
     int NETHERITE_SWORD = 743;
     int NETHERITE_SHOVEL = 744;
@@ -260,4 +261,8 @@ public interface ItemID {
     int NETHERITE_CHESTPLATE = 749;
     int NETHERITE_LEGGINGS = 750;
     int NETHERITE_BOOTS = 751;
+
+    int WARPED_FUNGUS_ON_A_STICK = 757;
+
+    int RECORD_PIGSTEP = 759;
 }
