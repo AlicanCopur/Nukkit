@@ -50,11 +50,6 @@ public class BlockSponge extends BlockSolidMeta {
     }
 
     @Override
-    public int getToolType() {
-        return ItemTool.TYPE_HOE;
-    }
-
-    @Override
     public String getName() {
         return NAMES[this.getDamage() & 0b1];
     }
