@@ -1753,7 +1753,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         }
 
         this.checkTeleportPosition();
-        
+
         if (currentTick % 10 == 0) {
             this.checkInteractNearby();
         }
@@ -2211,7 +2211,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                         @Override
                         public void onRun() {
-                            e = new PlayerAsyncPreLoginEvent(username, uuid, ip, port);
+                            e = new PlayerAsyncPreLoginEvent(username, uuid, Player.this.getAddress(), Player.this.getPort());
                             server.getPluginManager().callEvent(e);
                         }
 
@@ -2288,6 +2288,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     dataPacket.progress = 1048576 * requestPacket.chunkIndex;
                     this.dataPacket(dataPacket);
                     break;
+                /*case ProtocolInfo.SET_LOCAL_PLAYER_AS_INITIALIZED_PACKET:
+                    if (this.locallyInitialized) {
+                        break;
+                    }
+                    this.locallyInitialized = true;
+                    PlayerLocallyInitializedEvent locallyInitializedEvent = new PlayerLocallyInitializedEvent(this);
+                    this.server.getPluginManager().callEvent(locallyInitializedEvent);
+                    break;*/
                 case ProtocolInfo.PLAYER_SKIN_PACKET:
                     PlayerSkinPacket skinPacket = (PlayerSkinPacket) packet;
                     Skin skin = skinPacket.skin;
@@ -3071,7 +3079,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     if (spamBug) {
                                         return;
                                     }
-                                    
+
                                     this.setDataFlag(DATA_FLAGS, DATA_FLAG_ACTION, false);
                                     if (this.canInteract(blockVector.add(0.5, 0.5, 0.5), this.isCreative() ? 13 : 7)) {
                                         if (this.isCreative()) {
