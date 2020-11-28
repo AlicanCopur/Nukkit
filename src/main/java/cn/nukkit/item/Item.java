@@ -305,6 +305,9 @@ public class Item implements Cloneable, BlockID, ItemID {
 
             list[SHIELD] = ItemShield.class; //513
 
+            list[HONEYCOMB] = ItemHoneycomb.class; //736
+            list[HONEY_BOTTLE] = ItemHoneyBottle.class; //737
+
             list[NETHERITE_INGOT] = ItemIngotNetherite.class;
             list[NETHERITE_SWORD] = ItemSwordNetherite.class;
             list[NETHERITE_SHOVEL] = ItemShovelNetherite.class;
@@ -315,6 +318,8 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[NETHERITE_CHESTPLATE] = ItemChestplateNetherite.class;
             list[NETHERITE_LEGGINGS] = ItemLeggingsNetherite.class;
             list[NETHERITE_BOOTS] = ItemBootsNetherite.class;
+
+            list[RECORD_PIGSTEP] = ItemRecordPigstep.class; //759
 
             for (int i = 0; i < 256; ++i) {
                 if (Block.list[i] != null) {
@@ -433,7 +438,7 @@ public class Item implements Cloneable, BlockID, ItemID {
 
         Pattern integerPattern = Pattern.compile("^[1-9]\\d*$");
         if (integerPattern.matcher(b[0]).matches()) {
-            id = Integer.valueOf(b[0]);
+            id = Integer.parseInt(b[0]);
         } else {
             try {
                 id = Item.class.getField(b[0].toUpperCase()).getInt(null);
@@ -442,7 +447,7 @@ public class Item implements Cloneable, BlockID, ItemID {
         }
 
         id = id & 0xFFFF;
-        if (b.length != 1) meta = Integer.valueOf(b[1]) & 0xFFFF;
+        if (b.length != 1) meta = Integer.parseInt(b[1]) & 0xFFFF;
 
         return get(id, meta);
     }
@@ -646,6 +651,10 @@ public class Item implements Cloneable, BlockID, ItemID {
         }
 
         return enchantments.toArray(new Enchantment[0]);
+    }
+
+    public boolean hasEnchantment(int id) {
+        return this.getEnchantment(id) != null;
     }
 
     public boolean hasCustomName() {

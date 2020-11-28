@@ -244,7 +244,7 @@ public class Server {
 
     private DB nameLookup;
 
-    private PlayerDataSerializer playerDataSerializer = new DefaultPlayerDataSerializer(this);
+    private PlayerDataSerializer playerDataSerializer;
 
     private final Set<String> ignoredPackets = new HashSet<>();
 
@@ -272,6 +272,8 @@ public class Server {
         this.console = new NukkitConsole(this);
         this.consoleThread = new ConsoleThread();
         this.consoleThread.start();
+
+        this.playerDataSerializer = new DefaultPlayerDataSerializer(this);
 
         //todo: VersionString 现在不必要
 
@@ -1422,7 +1424,7 @@ public class Server {
 
     public int getDifficulty() {
         if (this.difficulty == Integer.MAX_VALUE) {
-            this.difficulty = this.getPropertyInt("difficulty", 1);
+            this.difficulty = getDifficultyFromString(this.getPropertyString("difficulty", "1"));
         }
         return this.difficulty;
     }
@@ -2302,12 +2304,14 @@ public class Server {
         Entity.registerEntity("ZombieVillagerV1", EntityZombieVillagerV1.class);
         //Passive
         Entity.registerEntity("Bat", EntityBat.class);
+        Entity.registerEntity("Bee", EntityBee.class);
         Entity.registerEntity("Cat", EntityCat.class);
         Entity.registerEntity("Chicken", EntityChicken.class);
         Entity.registerEntity("Cod", EntityCod.class);
         Entity.registerEntity("Cow", EntityCow.class);
         Entity.registerEntity("Dolphin", EntityDolphin.class);
         Entity.registerEntity("Donkey", EntityDonkey.class);
+        Entity.registerEntity("Fox", EntityFox.class);
         Entity.registerEntity("Horse", EntityHorse.class);
         Entity.registerEntity("Llama", EntityLlama.class);
         Entity.registerEntity("Mooshroom", EntityMooshroom.class);
